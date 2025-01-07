@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  font: sans;
+}
+.text-gray-700 ul {
+  list-style-type: disc; /* Display bullets */
+  margin-left: 1.5rem; /* Align the bullets properly */
+  padding-left: 0; /* Reset padding if necessary */
+}

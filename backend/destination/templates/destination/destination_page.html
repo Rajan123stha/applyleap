@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+  <div class="destination-page">
+    {% if page.banner_image %}
+      <div class="banner-image">
+        <img src="{{ page.banner_image.url }}" alt="{{ page.title }}">
+      </div>
+    {% endif %}
+
+    <div class="destination-content">
+      <h1>{{ page.title }}</h1>
+
+      {% if page.quote %}
+        <blockquote class="destination-quote">
+          {{ page.quote }}
+        </blockquote>
+      {% endif %}
+
+      {% if page.why_study_here %}
+        <section class="why-study-here">
+          <h2>Why Study Here?</h2>
+          {{ page.why_study_here|richtext }}
+        </section>
+      {% endif %}
+
+      {% if page.requirements %}
+        <section class="requirements">
+          <h2>Requirements</h2>
+          {{ page.requirements|richtext }}
+        </section>
+      {% endif %}
+
+      {% if page.courses %}
+        <section class="courses">
+          <h2>Courses</h2>
+          {{ page.courses|richtext }}
+        </section>
+      {% endif %}
+
+      {% if page.universities %}
+        <section class="universities">
+          <h2>Universities</h2>
+          {{ page.universities|richtext }}
+        </section>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+

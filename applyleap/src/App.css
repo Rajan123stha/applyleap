@@ -1,0 +1,45 @@
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+
+@media (min-width: 1024px) {
+  .card::before {
+    content: "";
+    position: absolute;
+    width: 7.3rem; /* Adjust length to reach the vertical line */
+    height: 3px; /* Thickness of the line */
+    background-color: rgb(209, 213, 219); /* Line color */
+    top: 50%; /* Center line vertically */
+    transform: translateY(-50%);
+  }
+
+  .card:nth-child(-n + 3)::before {
+    right: -6%; /* For left cards */
+  }
+
+  .card:nth-child(n + 4)::before {
+    left: 0%; /* For right cards */
+  }
+
+  .cards::before {
+    content: "";
+    position: absolute;
+    width: 7rem; /* Adjust length to reach the vertical line */
+    height: 3px; /* Thickness of the line */
+    background-color: rgb(209, 213, 219); /* Line color */
+    top: 50%; /* Center line vertically */
+    transform: translateY(-50%);
+  }
+
+  .cards:nth-child(2)::before {
+    right: 86%; /* For left cards */
+  }
+
+  .cards:nth-child(4)::before {
+    left: 100%; /* For right cards */
+  }
+}
