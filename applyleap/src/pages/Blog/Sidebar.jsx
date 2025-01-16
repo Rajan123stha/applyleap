@@ -62,7 +62,7 @@ const Sidebar = ({ currentSection, onSectionClick, data }) => {
 
       {/* Desktop view */}
       <div
-        className={` container px-6 md:px-4  mx-14 space-y-6 hidden md:block w-90 ${
+        className={` container px-6 md:px-4  mx-14 space-y-6 hidden md:block w-80 ${
           isSticky ? "fixed top-10" : "relative "
         }`}
       >

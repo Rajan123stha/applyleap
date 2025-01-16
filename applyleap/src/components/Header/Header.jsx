@@ -1,406 +1,246 @@
-import React, { useState } from "react";
-import { RiArrowDropDownLine } from "react-icons/ri";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  RiArrowDropDownLine,
+  RiMenuLine,
+  RiCloseLine,
+  RiSearchLine,
+} from "react-icons/ri";
+import { Link } from "react-router-dom";
+import { fetchDestination } from "../../Api";
 
 const Header = () => {
-  const location = useLocation();
-  // Pages where the navbar should not be fixed
-  const nonFixedRoutes = [];
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [destination, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  // Determine if the current route is in the non-fixed list
-  const isNonFixed = nonFixedRoutes.includes(location.pathname);
+  useEffect(() => {
+    const getDestinations = async () => {
+      try {
+        const response = await fetchDestination();
+        const titles = response.map((data) => data.title);
+        setDestinations(titles);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching destinations:", error);
+        setLoading(false);
+      }
+    };
 
-  const [openDropdown, setOpenDropdown] = useState(null); // Tracks which dropdown is open
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile menu toggleconst [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile menu toggle
+    getDestinations();
+  }, []);
 
-  // Handles opening dropdown on hover
-  const handleMouseEnter = (menu) => {
-    setOpenDropdown(menu);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  const tests = ["IELTS", "TOEFL", "GRE", "SAT"];
+  const guides = [
+    "Application Guide",
+    "Visa Guide",
+    "Scholarship Guide",
+    "Document Preparation Guide",
+  ];
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
-  // Handles closing dropdown when mouse leaves
-  const handleMouseLeave = () => {
-    setOpenDropdown(null);
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
   };
+
   const handleDropdownToggle = (menu) => {
-    if (openDropdown === menu) {
-      setOpenDropdown(null); // Close if the same menu is clicked again
-    } else {
-      setOpenDropdown(menu); // Open the specific menu
-    }
+    setOpenDropdown(openDropdown === menu ? null : menu);
   };
-  // Toggle mobile menu
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-  return (
-    <nav
-      className={`bg-gray-200  w-full z-10 ${
-        isNonFixed ? "sticky" : "fixed top-0"
-      }`}
-    >
-      <div className=" relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/">
-              <div className="text-2xl font-bold ">Applyleap</div>
-            </Link>
-          </div>
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex space-x-6">
-            {["Guide", "Destination", "Test Preparation"].map((menu, index) => (
-              <div
-                key={index}
-                className="relative"
-                onMouseEnter={() => handleMouseEnter(menu)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <button className="text-gray-800 hover:text-gray-600 text-lg font-semibold flex items-center space-x-1">
-                  <span>{menu}</span>
-                  <RiArrowDropDownLine size={30} />
-                </button>
-                {openDropdown === menu && (
-                  <div className="absolute top-full left-0 w-60 bg-white shadow-md  z-20 rounded-lg">
-                    <ul className="p-6 space-y-2 font-medium ">
-                      {menu === "Guide" && (
-                        <>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Application Guide
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Visa Guide
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Schlorship Guide
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Document Preparation Guide
-                            </a>
-                          </li>
-                        </>
-                      )}
-                      {menu === "Destination" && (
-                        <>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Study in Australia
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Study in Canada
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Study in New Zealand
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Study in New France
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Study in New UK
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              Study in New USA
-                            </a>
-                          </li>
-                        </>
-                      )}
-                      {menu === "Test Preparation" && (
-                        <>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              IELTS
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              TOEFL
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              GRE
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block text-gray-800 hover:text-gray-600"
-                            >
-                              SAT
-                            </a>
-                          </li>
-                        </>
-                      )}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            ))}
 
-            {/* Regular Nav Items */}
-            <a
-              href="#"
-              className="text-gray-800 hover:text-gray-600 text-lg font-semibold"
+  return (
+    <header className="bg-black text-white fixed top-0 z-50 w-full">
+      <div className="flex items-center justify-between max-w-7xl mx-auto px-4 h-16">
+        {/* Hamburger Icon and Partial Menu */}
+        <div className="flex items-center space-x-6">
+          {/* Hamburger Icon */}
+          <button className="text-white" onClick={toggleSidebar}>
+            <RiMenuLine size={24} />
+          </button>
+
+          {/* Menu Items Next to Hamburger */}
+          <div className="hidden lg:flex space-x-6">
+            <Link
+              to="/countries"
+              className="hover:text-gray-300 text-lg font-semibold"
+            >
+              Destination
+            </Link>
+            <Link
+              to="/universities"
+              className="hover:text-gray-300 text-lg font-semibold"
+            >
+              Universities
+            </Link>
+            <Link
+              to="/courses"
+              className="hover:text-gray-300 text-lg font-semibold"
+            >
+              Courses
+            </Link>
+            <Link
+              to="/scholarship/canada-scholarship"
+              className="hover:text-gray-300 text-lg font-semibold"
             >
               Scholarship
-            </a>
-            <a
-              href="#"
-              className="text-gray-800 hover:text-gray-600 text-lg font-semibold"
-            >
-              Course
-            </a>
-            <a
-              href="#"
-              className="text-gray-800 hover:text-gray-600 text-lg font-semibold"
-            >
-              Blogs
-            </a>
-            <a
-              href="#"
-              className="text-gray-800 hover:text-gray-600 text-lg font-semibold"
-            >
-              Events
-            </a>
-          </div>
-          {/* Hamburger Menu for Mobile and Medium Screens */}
-          <div className="lg:hidden">
-            <button
-              onClick={toggleMobileMenu}
-              className="text-gray-800 hover:text-gray-600 focus:outline-none"
-            >
-              {isMobileMenuOpen ? (
-                <span className="text-2xl">&times;</span>
-              ) : (
-                <span className="text-2xl">&#9776;</span>
-              )}
-            </button>
+            </Link>
           </div>
         </div>
+
+        {/* Logo and Search Icon */}
+        <div className="flex items-center space-x-4">
+          {/* Logo */}
+          <div className="text-2xl font-bold">
+            <Link to="/" className="text-white">
+              ApplyLeap
+            </Link>
+          </div>
+
+          {/* Search Icon */}
+          <button className="text-white" onClick={toggleSearch}>
+            <RiSearchLine size={24} />
+          </button>
+        </div>
       </div>
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden bg-gray-200 shadow-lg absolute top-16 left-0 w-full z-20">
-          <ul className="flex flex-col p-8 space-y-4 text-lg font-medium">
-            {["Guide", "Destination", "Test Preparation"].map((menu, index) => (
-              <li key={index}>
+
+      {/* Search Bar */}
+      {isSearchOpen && (
+        <div className="bg-white text-black w-full px-4 py-2 shadow-md">
+          <input
+            type="text"
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Search..."
+          />
+        </div>
+      )}
+
+      {/* Sidebar */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 z-40">
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-75"
+            onClick={toggleSidebar}
+          ></div>
+          {/* Sidebar */}
+          <div className="bg-white text-black w-64 h-full fixed left-0 top-0 z-50 shadow-lg">
+            <div className="flex items-center justify-between p-4 border-b">
+              <h2 className="text-lg font-semibold">Menu</h2>
+              <button onClick={toggleSidebar}>
+                <RiCloseLine size={24} />
+              </button>
+            </div>
+            <ul className="pl-6 pt-4 pr-4 space-y-6 font-medium">
+              <li>
                 <button
-                  className="text-gray-800 hover:text-gray-600 flex items-center space-x-1 w-full text-left"
-                  onClick={() => handleDropdownToggle(menu)}
+                  className="flex items-center justify-between w-full hover:text-blue-500"
+                  onClick={() => handleDropdownToggle("Guide")}
                 >
-                  <span>{menu}</span>
-                  <RiArrowDropDownLine />
+                  Guide
+                  <RiArrowDropDownLine size={26} />
                 </button>
-                {openDropdown === menu && (
-                  <ul className="p-6 space-y-2 font-medium ">
-                    {menu === "Guide" && (
-                      <>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Application Guide
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Visa Guide
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Schlorship Guide
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Document Preparation Guide
-                          </a>
-                        </li>
-                      </>
-                    )}
-                    {menu === "Destination" && (
-                      <>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Study in Australia
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Study in Canada
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Study in New Zealand
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Study in New France
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Study in New UK
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            Study in New USA
-                          </a>
-                        </li>
-                      </>
-                    )}
-                    {menu === "Test Preparation" && (
-                      <>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            IELTS
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            TOEFL
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            GRE
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="block text-gray-800 hover:text-gray-600"
-                          >
-                            SAT
-                          </a>
-                        </li>
-                      </>
-                    )}
+                {openDropdown === "Guide" && (
+                  <ul className="pl-3 space-y-3">
+                    {guides.map((guide, idx) => (
+                      <li key={idx}>
+                        <Link
+                          to={`/${guide.toLowerCase().replace(/\s+/g, "-")}`}
+                          className="hover:text-blue-500 text-sm font-normal"
+                        >
+                          {guide}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </li>
-            ))}
-            <li>
-              <a href="#" className="text-gray-800 hover:text-gray-600">
-                Scholarship
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-800 hover:text-gray-600">
-                Course
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-800 hover:text-gray-600">
-                Blogs
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-gray-800 hover:text-gray-600">
-                Events
-              </a>
-            </li>
-          </ul>
+              {/* Destination */}
+              <li>
+                <button
+                  className="flex items-center justify-between w-full hover:text-blue-500"
+                  onClick={() => handleDropdownToggle("Destination")}
+                >
+                  Destination
+                  <RiArrowDropDownLine size={26} />
+                </button>
+                {openDropdown === "Destination" && (
+                  <ul className="pl-3 space-y-3">
+                    {destination.map((country, idx) => (
+                      <li key={idx}>
+                        <Link
+                          to={`/countries/${country.toLowerCase()}`}
+                          className="hover:text-blue-500 text-sm font-normal"
+                        >
+                          Study in {country}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+              <li>
+                <button
+                  className="flex items-center justify-between w-full hover:text-blue-500"
+                  onClick={() => handleDropdownToggle("Test Preparation")}
+                >
+                  Test Preparation
+                  <RiArrowDropDownLine size={26} />
+                </button>
+                {openDropdown === "Test Preparation" && (
+                  <ul className="pl-3 space-y-3">
+                    {tests.map((test, idx) => (
+                      <li key={idx}>
+                        <Link
+                          to={`/test/${test.toLowerCase()}`}
+                          className="hover:text-blue-500 text-sm font-normal"
+                        >
+                          {test}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+              <li>
+                <Link to="/universities" className="hover:text-blue-500">
+                  Universities
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/scholarship/canada-scholarship"
+                  className="hover:text-blue-500"
+                >
+                  Scholarship
+                </Link>
+              </li>
+              <li>
+                <Link to="/blogs" className="hover:text-blue-500">
+                  Blogs
+                </Link>
+              </li>
+              <li>
+                <Link to="/courses" className="hover:text-blue-500">
+                  Course
+                </Link>
+              </li>
+              <li>
+                <Link to="/events" className="hover:text-blue-500">
+                  Events
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 };
 

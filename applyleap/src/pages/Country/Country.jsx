@@ -61,7 +61,7 @@ const Country = () => {
       <QuickLinks links={links} />
       <CountryDetails destination={destination} />
       <FAQ faqs={destination.faqs} />
-      <RelatedBlogs />
+      <RelatedBlogs category="Study Abroad" />
 
       <ScrollToTop />
     </div>

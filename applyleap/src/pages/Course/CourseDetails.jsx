@@ -1,41 +1,16 @@
 import React from "react";
 import image from "../../assets/images/uk.jpg";
 
-export const CourseDetails = () => {
-  const modules = [
-    {
-      title: "Introduction to Programming",
-      description: "Learn the basics of programming using Python.",
-    },
-    {
-      title: "Data Structures",
-      description:
-        "Understand essential data structures like arrays, lists, and trees.",
-    },
-    {
-      title: "Web Development",
-      description:
-        "Explore the fundamentals of front-end and back-end web development.",
-    },
-  ];
+export const CourseDetails = ({ course }) => {
+  const modules = course.course_details;
 
-  const reviews = [
-    {
-      name: "John Doe",
-      comment: "This course gave me a great foundation in programming!",
-      image_url: image,
-    },
-    {
-      name: "Jane Smith",
-      comment: "The modules are well-structured and easy to follow.",
-      image_url: image,
-    },
-    {
-      name: "Sam Wilson",
-      comment: "A must-take course for anyone starting in tech.",
-      image_url: image,
-    },
-  ];
+  const reviews = course.student_reviews;
+  const baseUrl = "http://127.0.0.1:8000"; // Replace with your backend URL
+  const generateImageUrl = (image) => {
+    console.log(image);
+
+    return `${baseUrl}${image}`;
+  };
 
   return (
     <div className="container px-6 md:px-10 mx-auto space-y-6">
@@ -45,12 +20,10 @@ export const CourseDetails = () => {
           <h2 className="text-3xl font-bold text-blue-800 mb-4">
             About the Course
           </h2>
-          <p className="text-gray-700 leading-relaxed">
-            This course is designed to provide a comprehensive introduction to
-            computer science and programming. Whether you're a complete beginner
-            or looking to enhance your skills, this course covers essential
-            topics and hands-on projects.
-          </p>
+          <div
+            className="text-gray-700 "
+            dangerouslySetInnerHTML={{ __html: course.introduction }}
+          />
         </div>
         <img
           src={image}
@@ -65,11 +38,10 @@ export const CourseDetails = () => {
           <h2 className="text-3xl font-bold text-blue-800 mb-4">
             Key Highlights
           </h2>
-          <ul className="list-disc pl-6 text-gray-700 space-y-2">
-            <li>Comprehensive curriculum covering core concepts.</li>
-            <li>Hands-on projects to build real-world skills.</li>
-            <li>Experienced instructors with industry knowledge.</li>
-          </ul>
+          <div
+            className="text-gray-700 "
+            dangerouslySetInnerHTML={{ __html: course.key_highlights }}
+          />
         </div>
         <img
           src={image}
@@ -99,27 +71,16 @@ export const CourseDetails = () => {
               {modules.map((module, index) => (
                 <tr key={index}>
                   <td className="border border-gray-300 px-4 py-2">
-                    {module.title}
+                    {module.field}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {module.description}
-                  </td>
+                  <td
+                    className="border border-gray-300 px-4 py-2"
+                    dangerouslySetInnerHTML={{ __html: module.description }}
+                  ></td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-        <div className="p-4 border rounded-lg shadow-md">
-          <img
-            src={image}
-            alt="Alumni 1"
-            className="rounded-md shadow-sm mb-4 object-cover h-40 w-full"
-          />
-          <h3 className="text-xl font-semibold text-black">John Doe</h3>
-          <p className="text-gray-600">
-            A CEO at a leading tech firm, John credits his success to the strong
-            foundation and network he built at XYZ University.
-          </p>
         </div>
       </section>
 
@@ -129,14 +90,10 @@ export const CourseDetails = () => {
           <h2 className="text-3xl font-bold text-blue-800 mb-4">
             Admission Details
           </h2>
-          <p className="text-gray-700 leading-relaxed">
-            To enroll in this course, follow these simple steps:
-          </p>
-          <ol className="list-decimal pl-6 text-gray-700 space-y-2">
-            <li>Check the eligibility criteria on our website.</li>
-            <li>Submit your application form along with required documents.</li>
-            <li>Pay the registration fee to confirm your spot.</li>
-          </ol>
+          <div
+            className="text-gray-700 "
+            dangerouslySetInnerHTML={{ __html: course.admission_details }}
+          />
         </div>
         <img
           src={image}
@@ -157,14 +114,17 @@ export const CourseDetails = () => {
               className="p-4 border rounded-lg shadow-md bg-gray-50 hover:shadow-lg transition duration-300"
             >
               <img
-                src={review.image_url}
+                src={generateImageUrl(review.image_url)}
                 alt={`Reviewer ${review.name}`}
                 className="rounded-md shadow-sm mb-4 object-cover h-40 w-full"
               />
               <h3 className="text-xl font-semibold text-blue-800">
                 {review.name}
               </h3>
-              <p className="text-gray-600 mt-2">{review.comment}</p>
+              <p
+                className="text-gray-600 mt-2"
+                dangerouslySetInnerHTML={{ __html: review.review }}
+              />
             </div>
           ))}
         </div>
@@ -174,16 +134,10 @@ export const CourseDetails = () => {
         <h2 className="text-3xl font-bold text-blue-800 mb-4">
           Career Opportunities
         </h2>
-        <p className="text-gray-700 leading-relaxed">
-          Completing this course opens up numerous career opportunities in the
-          tech industry. Graduates often pursue roles such as:
-        </p>
-        <ul className="list-disc pl-6 text-gray-700 space-y-2">
-          <li>Software Developer</li>
-          <li>Data Analyst</li>
-          <li>Web Developer</li>
-          <li>IT Consultant</li>
-        </ul>
+        <div
+          className="text-gray-700 "
+          dangerouslySetInnerHTML={{ __html: course.career_opportunities }}
+        />
       </section>
     </div>
   );

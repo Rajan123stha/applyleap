@@ -1,5 +1,5 @@
 import React from "react";
-import scholarshipImage from "../../assets/images/uk.jpg";
+import scholarshipImage from "../../assets/images/guide.jpg";
 import { PageBanner } from "../../components/Banner/PageBanner";
 
 export const ScholarshipGuide = () => {
@@ -8,7 +8,7 @@ export const ScholarshipGuide = () => {
       <PageBanner title="Scholarship Guide" image={scholarshipImage} />
       <div className="container px-6 md:px-10 mx-auto space-y-10">
         {/* Header Section */}
-        <section className="py-10 bg-green-50 text-center rounded-lg shadow-md">
+        <section className="py-10 px-4 bg-green-50 text-center rounded-lg shadow-md">
           <h1 className="text-4xl font-extrabold text-green-800 mb-4">
             Scholarship Guide
           </h1>
@@ -19,7 +19,7 @@ export const ScholarshipGuide = () => {
         </section>
 
         {/* Why Scholarships Are Important */}
-        <section className="flex flex-col lg:flex-row lg:space-x-6 py-10 items-center">
+        <section className="flex flex-col lg:flex-row lg:space-x-6 py-10 px-4 items-center shadow-md">
           <div className="lg:w-2/3">
             <h2 className="text-3xl font-bold text-green-800 mb-4">
               Why Scholarships Are Important
@@ -39,7 +39,7 @@ export const ScholarshipGuide = () => {
         </section>
 
         {/* Types of Scholarships */}
-        <section className="py-10 bg-white rounded-lg shadow-md">
+        <section className="py-10 px-4 bg-white rounded-lg shadow-md">
           <h2 className="text-3xl font-bold text-green-800 mb-6">
             Types of Scholarships
           </h2>
@@ -73,7 +73,7 @@ export const ScholarshipGuide = () => {
         </section>
 
         {/* How to Find Scholarships */}
-        <section className="py-10">
+        <section className="py-10 px-4 shadow-md">
           <h2 className="text-3xl font-bold text-green-800 mb-6">
             How to Find Scholarships
           </h2>
@@ -91,7 +91,7 @@ export const ScholarshipGuide = () => {
         </section>
 
         {/* Application Tips */}
-        <section className="py-10 bg-gray-50 rounded-lg shadow-md">
+        <section className="py-10 px-4 bg-gray-50 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold text-green-800 mb-6">
             Tips for Applying
           </h2>
@@ -111,7 +111,7 @@ export const ScholarshipGuide = () => {
         </section>
 
         {/* Common Mistakes to Avoid */}
-        <section className="py-10">
+        <section className="py-10 px-4 shadow-md">
           <h2 className="text-3xl font-bold text-green-800 mb-6">
             Common Mistakes to Avoid
           </h2>
@@ -124,7 +124,7 @@ export const ScholarshipGuide = () => {
         </section>
 
         {/* Useful Resources */}
-        <section className="py-10 bg-green-50 rounded-lg shadow-md">
+        <section className="py-10 px-4 bg-green-50 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold text-green-800 mb-6">
             Useful Resources
           </h2>
@@ -176,7 +176,7 @@ export const ScholarshipGuide = () => {
         </section>
 
         {/* Closing Section */}
-        <section className="py-10 text-center bg-green-50 rounded-lg shadow-md">
+        <section className="py-10 px-4 text-center bg-green-50 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold text-green-800 mb-4">
             Final Thoughts
           </h2>

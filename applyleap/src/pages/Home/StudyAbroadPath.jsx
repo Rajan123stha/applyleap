@@ -7,7 +7,13 @@ import {
   FaPlane,
   FaHome,
 } from "react-icons/fa"; // Relevant icons for each step
-import Research from "../../assets/canada.jpg"; // Replace with your local image
+import Research from "../../assets/images/research.png"; // Replace with your local image
+import Application from "../../assets/images/application.jpg";
+import accept from "../../assets/images/acceptance.jpg";
+import visa from "../../assets/images/visa.png";
+import pre from "../../assets/images/pre-deprature.png";
+import arrival from "../../assets/images/arrival.jpeg";
+import App from "../../App";
 
 function StudyAbroadPath() {
   const steps = [
@@ -20,31 +26,31 @@ function StudyAbroadPath() {
     {
       title: "Application",
       description: "Submit your applications to universities.",
-      image: Research,
+      image: Application,
       icon: <FaFileAlt className="text-green-500 text-2xl" />,
     },
     {
       title: "Acceptance",
       description: "Receive offers from universities.",
-      image: Research,
+      image: accept,
       icon: <FaUniversity className="text-yellow-500 text-2xl" />,
     },
     {
       title: "Visa Process",
       description: "Complete your visa application.",
-      image: Research,
+      image: visa,
       icon: <FaPassport className="text-red-500 text-2xl" />,
     },
     {
       title: "Pre-Departure",
       description: "Plan your travel and prepare for the journey.",
-      image: Research,
+      image: pre,
       icon: <FaPlane className="text-blue-400 text-2xl" />,
     },
     {
       title: "Arrival",
       description: "Settle in and begin your program.",
-      image: Research,
+      image: arrival,
       icon: <FaHome className="text-purple-500 text-2xl" />,
     },
   ];

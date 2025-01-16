@@ -8,7 +8,7 @@ export const DocumentPreparationGuide = () => {
       <PageBanner title="Document Preparation Guide" image={documentImage} />
       <div className="container px-6 md:px-10 mx-auto space-y-10">
         {/* Header Section */}
-        <section className="py-10 bg-blue-50 text-center rounded-lg shadow-md">
+        <section className="py-8 px-4  bg-blue-50 text-center rounded-lg shadow-md">
           <h1 className="text-4xl font-extrabold text-blue-800 mb-4">
             Document Preparation Guide
           </h1>
@@ -19,7 +19,7 @@ export const DocumentPreparationGuide = () => {
         </section>
 
         {/* Why Document Preparation Matters */}
-        <section className="flex flex-col lg:flex-row lg:space-x-6 py-10 items-center">
+        <section className="flex flex-col lg:flex-row lg:space-x-6 py-8 px-4  items-center">
           <div className="lg:w-2/3">
             <h2 className="text-3xl font-bold text-blue-800 mb-4">
               Why Document Preparation Matters
@@ -39,7 +39,7 @@ export const DocumentPreparationGuide = () => {
         </section>
 
         {/* List of Required Documents */}
-        <section className="py-10 bg-white rounded-lg shadow-md">
+        <section className="py-8 px-4  bg-white rounded-lg shadow-md">
           <h2 className="text-3xl font-bold text-blue-800 mb-6">
             List of Required Documents
           </h2>
@@ -61,7 +61,7 @@ export const DocumentPreparationGuide = () => {
         </section>
 
         {/* Tips for Document Preparation */}
-        <section className="py-10">
+        <section className="py-8 px-4 shadow-md">
           <h2 className="text-3xl font-bold text-blue-800 mb-6">
             Tips for Document Preparation
           </h2>
@@ -88,7 +88,7 @@ export const DocumentPreparationGuide = () => {
         </section>
 
         {/* Common Mistakes to Avoid */}
-        <section className="py-10 bg-gray-50 rounded-lg shadow-md">
+        <section className="py-8 px-4  bg-gray-50 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold text-blue-800 mb-6">
             Common Mistakes to Avoid
           </h2>
@@ -104,7 +104,7 @@ export const DocumentPreparationGuide = () => {
         </section>
 
         {/* Useful Resources */}
-        <section className="py-10">
+        <section className="py-8 px-4 shadow-md">
           <h2 className="text-3xl font-bold text-blue-800 mb-6">
             Useful Resources
           </h2>
@@ -156,7 +156,7 @@ export const DocumentPreparationGuide = () => {
         </section>
 
         {/* Closing Section */}
-        <section className="py-10 text-center bg-blue-50 rounded-lg shadow-md">
+        <section className="py-8 px-4  text-center bg-blue-50 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold text-blue-800 mb-4">
             Final Thoughts
           </h2>

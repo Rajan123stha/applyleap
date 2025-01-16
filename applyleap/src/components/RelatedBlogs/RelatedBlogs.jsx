@@ -1,37 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "../Cards/Card";
+import { Link } from "react-router-dom";
 import AustraliaImage from "../../assets/australia.jpg";
+import { fetchBlogsByCategory } from "../../Api";
 
-const RelatedBlogs = () => {
-  const blogs = [
-    {
-      title:
-        "10 Essential Tips for Making the Most of Your Study Abroad Experience",
-      image: AustraliaImage,
-      writer: "Hari Bhattrai",
-      date: "13th June 2022",
-    },
-    {
-      title:
-        "The Ultimate Guide to Studying Abroad: Everything You Need to Know",
-      image: AustraliaImage,
-      writer: "John Doe",
-      date: "12th August 2021",
-    },
-    {
-      title: "How to Prepare for Your Study Abroad Adventure",
-      image: AustraliaImage,
-      writer: "Mark Henry",
-      date: "1st May 2023",
-    },
-    {
-      title:
-        "10 Essential Tips for Making the Most of Your Study Abroad Experience",
-      image: AustraliaImage,
-      writer: "John Cena",
-      date: "29th January 2021",
-    },
-  ];
+const RelatedBlogs = ({ category }) => {
+  const [relatedBlogs, setRelatedBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getRelatedBlogs = async () => {
+      try {
+        // Replace this with dynamic category selection
+        const blogs = await fetchBlogsByCategory(category);
+        setRelatedBlogs(blogs);
+        setLoading(false);
+      } catch (err) {
+        setError(err);
+        setLoading(false);
+      }
+    };
+
+    getRelatedBlogs();
+  }, []);
 
   const [visibleCount, setVisibleCount] = useState(1); // Default to 1 blog for small screens
 
@@ -58,14 +50,22 @@ const RelatedBlogs = () => {
   }, []);
 
   // Limit the displayed blogs to the number visible for the current screen size
-  const visibleBlogs = blogs.slice(0, visibleCount);
+  const visibleBlogs = relatedBlogs.slice(0, visibleCount);
+  const generateSlug = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-") // Replace non-alphanumeric characters with hyphens
+      .replace(/^-+|-+$/g, ""); // Trim leading/trailing hyphens
+  };
 
   return (
     <div className="container px-6 md:px-10 py-8  mx-auto mt-6 mb-18">
       <h2 className="text-2xl font-bold mb-4">Related Blogs</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         {visibleBlogs.map((blog, index) => (
-          <Card key={index} blog={blog} />
+          <Link to={`/blogs/${generateSlug(blog.title)}`} key={index}>
+            <Card index={index} blog={blog} />
+          </Link>
         ))}
       </div>
     </div>

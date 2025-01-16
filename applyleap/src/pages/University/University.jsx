@@ -8,6 +8,7 @@ import { UniversityDetails } from "./UniversityDetails";
 import RelatedBlogs from "../../components/RelatedBlogs/RelatedBlogs";
 import FAQ from "../../components/FAQ/FAQ";
 import ScrollToTop from "../../components/Button/ScrollToTop";
+import QuickLinks from "../../components/QuickLink";
 
 const University = () => {
   const { slug } = useParams();
@@ -20,7 +21,7 @@ const University = () => {
       try {
         // Fetch the destination page based on the slug
         const page = await fetchDestinationBySlug(slug);
-
+        console.log(page);
         if (page && page.meta.detail_url) {
           // Fetch detailed data for the destination
           const details = await fetchDestinationDetails(page.meta.detail_url);
@@ -52,6 +53,17 @@ const University = () => {
         '<p data-block-key="kzcn5">The top universities in Australia are…sity of Melbourne, and the University of Sydney.</p>',
     },
   };
+  const links = [
+    { id: "keyInfo", label: "KeyInfo" },
+    { id: "about", label: "About" },
+    { id: "courses-fee", label: "Course and Fees" },
+    { id: "admission", label: "Admission" },
+    { id: "placement", label: "Placement" },
+    { id: "acceptance ", label: "Acceptance Rate" },
+    { id: "reviews", label: "Review" },
+    { id: "scholarship", label: "Scholarship" },
+    { id: "gallery", label: "Gallery" },
+  ];
   return (
     <div>
       <UniBanner
@@ -60,9 +72,10 @@ const University = () => {
         quote={university.quote}
         title={university.title}
       />
+      <QuickLinks links={links} />
       <KeyInformation university={university} />
       <UniversityDetails university={university} />
-      <RelatedBlogs />
+      <RelatedBlogs category="Universities" />
       <FAQ faqs={university.faqs} />
       <ScrollToTop />
     </div>

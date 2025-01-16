@@ -24,6 +24,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    "backend",
     "home",
     "destination",
     "blog",
@@ -31,6 +32,9 @@ INSTALLED_APPS = [
     "university",
     "scholarship",
     "events",
+    "pages",
+    "categories",
+    "course",
     "search",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -42,6 +46,7 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
+    'wagtail_color_panel',
     "wagtail",
     "modelcluster",
     "taggit",
@@ -171,6 +176,8 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
     },
 }
+
+
 
 
 # Wagtail settings

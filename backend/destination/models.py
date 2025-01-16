@@ -151,6 +151,9 @@ class DestinationPage(Page):
         help_text="Explain why students should choose this destination."
     )
 
+    parent_page_types = ['pages.DestinationIndexPage']  # Adjust app name if needed
+    subpage_types = []
+
     content_panels = Page.content_panels + [
         FieldPanel('banner_image'),
         FieldPanel('quote'),

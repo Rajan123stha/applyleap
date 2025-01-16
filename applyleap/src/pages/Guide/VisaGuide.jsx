@@ -1,11 +1,15 @@
 import React from "react";
-import Image1 from "../../assets/images/uk.jpg"; // Add an image for the visa guide section
+import Banner from "../../assets/images/visa-guide.webp";
+import visa from "../../assets/images/visapp.jpeg"; // Add an image for the visa guide section
+import document from "../../assets/images/document.jpg"; // Add an image for the visa guide section
+import tips from "../../assets/images/tips.jpg"; // Add an image for the visa guide section
+
 import { PageBanner } from "../../components/Banner/PageBanner";
 
 const VisaGuide = () => {
   return (
     <>
-      <PageBanner title="Student Visa Guide" image={Image1} />
+      <PageBanner title="" image={Banner} />
       <div className="container px-6 md:px-10 mx-auto space-y-6">
         {/* Visa Guide Header */}
         <div className="text-center py-8">
@@ -25,7 +29,7 @@ const VisaGuide = () => {
             <h2 className="text-2xl font-bold mb-4">
               Steps to Apply for a Student Visa
             </h2>
-            <div className="text-gray-700 text-justify text-sm leading-relaxed">
+            <div className="text-gray-700 text-justify  leading-relaxed">
               <ul className="space-y-4">
                 <li>
                   <strong>Step 1:</strong> Choose the right study program and
@@ -54,7 +58,7 @@ const VisaGuide = () => {
           {/* Image Section */}
           <div className="lg:w-1/3 mt-6">
             <img
-              src={Image1}
+              src={visa}
               alt="Visa Process"
               className="rounded shadow-md w-full lg:h-48"
             />
@@ -66,7 +70,7 @@ const VisaGuide = () => {
           {/* Text Section */}
           <div className="lg:w-2/3">
             <h2 className="text-2xl font-bold mb-4">Required Documents</h2>
-            <div className="text-gray-700 text-justify text-sm leading-relaxed">
+            <div className="text-gray-700 text-justify  leading-relaxed">
               <ul className="space-y-4">
                 <li>Valid passport with at least 6 months of validity.</li>
                 <li>Acceptance letter from the university or college.</li>
@@ -86,7 +90,7 @@ const VisaGuide = () => {
           {/* Image Section */}
           <div className="lg:w-1/3 mt-6">
             <img
-              src={Image1}
+              src={document}
               alt="Document Checklist"
               className="rounded shadow-md w-full lg:h-48"
             />
@@ -98,7 +102,7 @@ const VisaGuide = () => {
           {/* Text Section */}
           <div className="lg:w-2/3">
             <h2 className="text-2xl font-bold mb-4">Visa Interview Tips</h2>
-            <div className="text-gray-700 text-justify text-sm leading-relaxed">
+            <div className="text-gray-700 text-justify  leading-relaxed">
               <ul className="space-y-4">
                 <li>Be confident and honest while answering questions.</li>
                 <li>Ensure that all your documents are ready and organized.</li>
@@ -117,7 +121,7 @@ const VisaGuide = () => {
           {/* Image Section */}
           <div className="lg:w-1/3 mt-6">
             <img
-              src={Image1}
+              src={tips}
               alt="Visa Interview"
               className="rounded shadow-md w-full lg:h-48"
             />

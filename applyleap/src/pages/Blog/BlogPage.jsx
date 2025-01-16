@@ -137,7 +137,7 @@ const BlogWithSidebar = () => {
         </div>
       </div>
       <FAQ faqs={blogPage.faqs} />
-      <RelatedBlogs />
+      <RelatedBlogs category={blogPage.category} />
       <ScrollToTop />
     </div>
   );

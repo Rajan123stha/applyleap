@@ -7,7 +7,6 @@ from modelcluster.fields import ParentalKey
 from rest_framework import serializers
 
 
-# Nested Models for Addable Fields
 class ScholarshipDetail(models.Model):
     page = ParentalKey('ScholarshipPage', related_name='scholarship_details', on_delete=models.CASCADE)
     provider_type = models.CharField(
@@ -32,7 +31,11 @@ class ScholarshipDetail(models.Model):
         FieldPanel('criteria'),
     ]
 
-
+class ScholarshipDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScholarshipDetail
+        fields = ['provider_type', 'grant', 'deadline', 'title', 'criteria']
+        
 class ScholarshipPage(Page):
     country = models.CharField(max_length=255, help_text="Specify the country for the scholarship.")
     about = RichTextField(blank=True, help_text="Provide details about the scholarship.")
@@ -55,7 +58,7 @@ class ScholarshipPage(Page):
         APIField('types_of_scholarship'),
         APIField(
             'scholarship_details',
-            serializer='path.to.ScholarshipDetailSerializer(many=True)'  # Replace 'path.to' with the actual path
+            serializer=ScholarshipDetailSerializer(many=True)  # Use the custom serializer here
         ),
         APIField('how_to_apply'),
         APIField('tips'),
@@ -66,8 +69,3 @@ class ScholarshipPage(Page):
         verbose_name_plural = "Scholarship Pages"
 
 
-# Serializer for the Addable Field
-class ScholarshipDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ScholarshipDetail
-        fields = ['provider_type', 'grant', 'deadline', 'title', 'criteria']

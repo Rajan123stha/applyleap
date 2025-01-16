@@ -9,3 +9,18 @@
   margin-left: 1.5rem; /* Align the bullets properly */
   padding-left: 0; /* Reset padding if necessary */
 }
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.content-wrapper {
+  flex: 1;
+}

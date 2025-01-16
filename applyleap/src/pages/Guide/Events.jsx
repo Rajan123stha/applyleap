@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { fetchDestinationBySlug, fetchDestinationDetails } from "../../Api";
-import eventImage from "../../assets/images/uk.jpg";
+import eventImage from "../../assets/images/event.webp";
 import { PageBanner } from "../../components/Banner/PageBanner";
 import FAQ from "../../components/FAQ/FAQ";
 
@@ -75,7 +75,7 @@ export const EventsPage = () => {
 
   return (
     <>
-      <PageBanner label="Upcoming Events" image={eventImage} />
+      <PageBanner label="" image={eventImage} />
       <div className="container px-6 md:px-10 mx-auto space-y-10">
         {/* Header Section */}
         <section className="py-10 bg-green-50 text-center rounded-lg shadow-md">

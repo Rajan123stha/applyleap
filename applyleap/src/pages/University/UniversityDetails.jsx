@@ -1,5 +1,7 @@
 import React from "react";
 import image from "../../assets/images/australia.jpg";
+import placement from "../../assets/images/placement.png";
+import { Link } from "react-router-dom";
 
 export const UniversityDetails = ({ university }) => {
   const costs = university.tuition_fees;
@@ -10,10 +12,22 @@ export const UniversityDetails = ({ university }) => {
 
     return `${baseUrl}${image}`;
   };
+  const images = [
+    "https://www.timeshighereducation.com/student/sites/default/files/harvard-university-campus.jpg", // Replace with your image URLs
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsuXRnQ3CpVnxNhQMdK1BBwcNzf39PdPC_Og&s",
+    "https://www.timeshighereducation.com/student/sites/default/files/harvard-university-campus.jpg", // Replace with your image URLs
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsuXRnQ3CpVnxNhQMdK1BBwcNzf39PdPC_Og&s",
+    "https://www.timeshighereducation.com/student/sites/default/files/harvard-university-campus.jpg", // Replace with your image URLs
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsuXRnQ3CpVnxNhQMdK1BBwcNzf39PdPC_Og&s",
+  ];
+
   return (
     <div className="container px-6 md:px-10  mx-auto space-y-6">
       {/* About Section */}
-      <section className="flex flex-col lg:flex-row  lg:space-x-6 py-8">
+      <section
+        className="flex flex-col lg:flex-row  lg:space-x-6 py-8"
+        id="about"
+      >
         <div className="lg:w-2/3">
           <h2 className="text-3xl font-bold text-black mb-4">
             About the University
@@ -54,59 +68,8 @@ export const UniversityDetails = ({ university }) => {
         />
       </section>
 
-      {/* Academic Information Section */}
-      <section className="flex flex-col lg:flex-row  lg:space-x-6 py-8">
-        <div className="lg:w-2/3">
-          <h2 className="text-3xl font-bold text-black mb-4">
-            Academic Information
-          </h2>
-
-          <div
-            className="text-gray-700 pl-6 leading-relaxed"
-            dangerouslySetInnerHTML={{
-              __html: university.academic_information,
-            }}
-          />
-        </div>
-        <img
-          src={image}
-          alt="Academic Information"
-          className="mt-6 lg:mt-0 lg:w-1/3 rounded-lg h-45 lg:h-60"
-        />
-      </section>
-
-      {/* Admission Details Section */}
-      <section className="flex flex-col lg:flex-row  lg:space-x-6">
-        <div className="lg:w-2/3">
-          <h2 className="text-3xl font-bold text-black mb-4">
-            Admission Details
-          </h2>
-          <div
-            className="text-gray-700 pl-6 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: university.admission_details }}
-          />
-
-          {/* <p className="text-gray-700">
-            The application process is simple and straightforward:
-          </p>
-          <ol className="list-decimal pl-6 text-gray-700">
-            <li>Check the eligibility criteria.</li>
-            <li>
-              Prepare your documents, including transcripts and test scores.
-            </li>
-            <li>Submit your application through our online portal.</li>
-            <li>Wait for the admission decision.</li>
-          </ol> */}
-        </div>
-        <img
-          src={image}
-          alt="Admission Details"
-          className="mt-6 lg:mt-0 lg:w-1/3 rounded-lg p-4 h-45 lg:h-60"
-        />
-      </section>
-
       {/* Tuition and Fees Section */}
-      <section className=" lg:space-x-6">
+      <section className=" lg:space-x-6" id="courses-fee">
         <div className="">
           <h2 className="text-3xl font-bold text-black mb-4">
             Tuition and Fees
@@ -150,8 +113,63 @@ export const UniversityDetails = ({ university }) => {
         </div>
       </section>
 
+      {/* Admission Details Section */}
+      <section
+        className="flex flex-col lg:flex-row  lg:space-x-6 py-8"
+        id="admision"
+      >
+        <div className="lg:w-2/3">
+          <h2 className="text-3xl font-bold text-black mb-4">
+            Admission Details
+          </h2>
+          <div
+            className="text-gray-700 pl-6 leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: university.admission_details }}
+          />
+
+          {/* <p className="text-gray-700">
+            The application process is simple and straightforward:
+          </p>
+          <ol className="list-decimal pl-6 text-gray-700">
+            <li>Check the eligibility criteria.</li>
+            <li>
+              Prepare your documents, including transcripts and test scores.
+            </li>
+            <li>Submit your application through our online portal.</li>
+            <li>Wait for the admission decision.</li>
+          </ol> */}
+        </div>
+        <img
+          src={image}
+          alt="Admission Details"
+          className="mt-6 lg:mt-0 lg:w-1/3 rounded-lg p-4 h-45 lg:h-60"
+        />
+      </section>
+      {/* Placement Information Section */}
+      <section
+        className="flex flex-col lg:flex-row  lg:space-x-6 py-8"
+        id="placement"
+      >
+        <div className="lg:w-2/3">
+          <h2 className="text-3xl font-bold text-black mb-4">
+            Placement Information
+          </h2>
+
+          <div
+            className="text-gray-700 pl-6 leading-relaxed"
+            dangerouslySetInnerHTML={{
+              __html: university.academic_information,
+            }}
+          />
+        </div>
+        <img
+          src={placement}
+          alt="Academic Information"
+          className="mt-6 lg:mt-0 lg:w-1/3 rounded-lg h-45 lg:h-60"
+        />
+      </section>
       {/* Alumni Success Stories */}
-      <section>
+      <section id="review">
         <h2 className="text-3xl font-bold text-black mb-6  mt-8">
           Alumni Success Stories
         </h2>
@@ -181,26 +199,115 @@ export const UniversityDetails = ({ university }) => {
         </div>
       </section>
 
-      {/* Research Opportunities */}
-      {/* <section className="rounded-lg shadow-md">
-        <h2 className="text-3xl font-bold text-black mb-4">
-          Research Opportunities
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <p className="text-gray-700">
-            XYZ University is home to cutting-edge research facilities and
-            collaborative opportunities. Students work on groundbreaking
-            projects in areas like AI, renewable energy, and healthcare
-            innovations. Our faculty are leaders in their fields, mentoring
-            students to excel in their research ambitions.
-          </p>
-          <img
-            src={image}
-            alt="Research Opportunities"
-            className="rounded-lg shadow-md object-cover h-64 w-full"
-          />
+      <section className="bg-gray-50 py-10" id="scholarship">
+        <div className="container mx-auto px-6">
+          {/* Section Header */}
+          <div className="text-left mb-8">
+            <h2 className="text-3xl font-semibold text-gray-800">
+              Types of Scholarships
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Explore a variety of scholarships tailored to your needs and
+              goals.{" "}
+              <Link
+                to={`/scholarship/${university.location.toLowerCase()}-scholarship`}
+                className="font-semibold text-blue-600"
+              >
+                Click here
+              </Link>{" "}
+              for detailed overview.
+            </p>
+          </div>
+
+          {/* Scholarship List */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left Column */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                Merit-Based Scholarships
+              </h3>
+              <ul className="list-disc pl-5 text-gray-600 space-y-2">
+                <li>Academic Excellence Scholarships</li>
+                <li>Sports Scholarships</li>
+                <li>Extracurricular Achievement Scholarships</li>
+                <li>Leadership Scholarships</li>
+              </ul>
+            </div>
+
+            {/* Right Column */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                Need-Based Scholarships
+              </h3>
+              <ul className="list-disc pl-5 text-gray-600 space-y-2">
+                <li>Low-Income Family Scholarships</li>
+                <li>Single Parent Assistance Scholarships</li>
+                <li>Special Disability Scholarships</li>
+                <li>Emergency Financial Aid Programs</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Additional Scholarship Categories */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
+            {/* Left Column */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                International Scholarships
+              </h3>
+              <ul className="list-disc pl-5 text-gray-600 space-y-2">
+                <li>Study Abroad Scholarships</li>
+                <li>Country-Specific Scholarships</li>
+                <li>International Exchange Programs</li>
+                <li>Language Proficiency Scholarships</li>
+              </ul>
+            </div>
+
+            {/* Right Column */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                Special Category Scholarships
+              </h3>
+              <ul className="list-disc pl-5 text-gray-600 space-y-2">
+                <li>Minority Group Scholarships</li>
+                <li>Women Empowerment Scholarships</li>
+                <li>Military and Veteran Scholarships</li>
+                <li>Artistic Talent Scholarships</li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </section> */}
+      </section>
+      <section className="bg-gray-50 py-10" id="gallery">
+        <div className="container mx-auto px-6">
+          {/* Section Header */}
+          <div className="text-left mb-8">
+            <h2 className="text-3xl font-semibold text-gray-800">
+              Our Gallery
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Take a look at some of our amazing moments.
+            </p>
+          </div>
+
+          {/* Gallery Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className="relative group overflow-hidden rounded-lg shadow-md"
+              >
+                <img
+                  src={image}
+                  alt={`Gallery ${index + 1}`}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

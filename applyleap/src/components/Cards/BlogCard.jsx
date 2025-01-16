@@ -1,40 +1,34 @@
-import React from "react";
-import AustraliaImage from "../../assets/australia.jpg"; // Replace with your actual file paths
-import CanadaImage from "../../assets/canada.jpg";
-import UkImage from "../../assets/uk.jpg";
+import React, { useEffect, useState } from "react";
+import { Link, Links } from "react-router-dom";
+
 import Button from "../Button/Button";
 import { Card } from "./Card";
-
-const blogs = [
-  {
-    title:
-      "10 Essential Tips for Making the Most of Your Study Abroad Experience",
-    image: AustraliaImage,
-    writer: "Hari Bhattrai",
-    date: "13th June 2022",
-  },
-  {
-    title: "The Ultimate Guide to Studying Abroad: Everything You Need to Know",
-    image: CanadaImage,
-    writer: "John Doe",
-    date: "12th August 2021",
-  },
-  {
-    title: "The Ultimate Guide to Studying Abroad: Everything You Need to Know",
-    image: UkImage,
-    writer: "Mark Henry",
-    date: "1st May 2023",
-  },
-  {
-    title:
-      "10 Essential Tips for Making the Most of Your Study Abroad Experience",
-    image: UkImage,
-    writer: "John Cena",
-    date: "29th January 2021",
-  },
-];
+import { fetchBlogs } from "../../Api";
 
 const BlogCard = () => {
+  const [blogs, setBlogs] = useState([]); // State to store blog details
+  const [loading, setLoading] = useState(true); // State to handle loading
+
+  useEffect(() => {
+    const getBlogs = async () => {
+      try {
+        const blogData = await fetchBlogs(); // Call the fetchBlogs function
+        setBlogs(blogData); // Update the state with fetched data
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching blog details:", error);
+        setLoading(false);
+      }
+    };
+
+    getBlogs();
+  }, []);
+  const generateSlug = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-") // Replace non-alphanumeric characters with hyphens
+      .replace(/^-+|-+$/g, ""); // Trim leading/trailing hyphens
+  };
   return (
     <div className="container mx-auto px-10 py-4">
       {/* Heading Section */}
@@ -44,20 +38,26 @@ const BlogCard = () => {
         </h1>
         {/* View More Button */}
         <div className="hidden lg:block">
-          <Button label="Read More" />
+          <Link to="/blogs">
+            <Button label="Read More" />
+          </Link>
         </div>
       </div>
 
       {/* Responsive Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
         {blogs.map((blog, index) => (
-          <Card key={index} blog={blog} />
+          <Link to={`/blogs/${generateSlug(blog.title)}`} key={index}>
+            <Card blog={blog} />
+          </Link>
         ))}
       </div>
 
       {/* View More Button for Small and Medium Devices */}
       <div className="flex justify-center lg:hidden mt-6">
-        <Button label="Read More" />
+        <Link to="/blogs">
+          <Button label="Read More" />
+        </Link>
       </div>
     </div>
   );
