@@ -1,14 +1,13 @@
 import React from "react";
 import image from "../../assets/images/uk.jpg";
+import { BASE_URL } from "../../config";
 
 export const CourseDetails = ({ course }) => {
   const modules = course.course_details;
 
   const reviews = course.student_reviews;
-  const baseUrl = "http://127.0.0.1:8000"; // Replace with your backend URL
+  const baseUrl = BASE_URL; // Replace with your backend URL
   const generateImageUrl = (image) => {
-    console.log(image);
-
     return `${baseUrl}${image}`;
   };
 

@@ -35,7 +35,7 @@ export const Test = () => {
 
     getData();
   }, [slug]);
-  console.log(tests);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!tests) return <div>No data available</div>;

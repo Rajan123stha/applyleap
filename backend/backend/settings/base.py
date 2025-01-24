@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-    'wagtail_color_panel',
+
     "wagtail",
     "modelcluster",
     "taggit",
@@ -76,8 +76,22 @@ MIDDLEWARE = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Add your frontend's URL here
+    'http://localhost:5173/',
+    'http://applyleap.s3-website.ap-south-1.amazonaws.com',
+    'https://applyleap.s3-website.ap-south-1.amazonaws.com',
+    'https://applyleap.com',
+    'http://applyleap.com',
+    'https://api.applyleap.com',
+
 ]
+ALLOWED_HOSTS = ['api.applyleap.com', '127.0.0.1', 'localhost']
+
+CSRF_TRUSTED_ORIGINS = ['https://api.applyleap.com']
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+
 
 ROOT_URLCONF = "backend.urls"
 

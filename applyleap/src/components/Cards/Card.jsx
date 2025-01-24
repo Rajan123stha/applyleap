@@ -1,7 +1,8 @@
 import React from "react";
+import { BASE_URL } from "../../config";
 
 export const Card = ({ blog }) => {
-  const baseUrl = "http://127.0.0.1:8000"; // Replace with your backend URL
+  const baseUrl = BASE_URL; // Replace with your backend URL
 
   const generateImageUrl = (image) => {
     const url = image.url;

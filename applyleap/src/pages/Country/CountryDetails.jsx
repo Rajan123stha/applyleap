@@ -19,7 +19,6 @@ export const CountryDetails = ({ destination }) => {
   const universities = destination.universities || [];
   const courses = destination.courses || [];
   const costs = destination.cost_details || [];
-  console.log(destination);
 
   return (
     <div>

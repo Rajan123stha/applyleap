@@ -6,9 +6,11 @@ import {
   FaStethoscope,
   FaPaintBrush,
 } from "react-icons/fa"; // IT & Business icons
-import { MdDesignServices } from "react-icons/md"; // Design icon
+import { MdDesignServices } from "react-icons/md";
+import { BASE_URL } from "../../config";
+// Design icon
 const CourseCard = ({ course }) => {
-  const baseUrl = "http://127.0.0.1:8000";
+  const baseUrl = BASE_URL;
   const generateImageUrl = (image) => {
     const url = image.url;
 

@@ -27,7 +27,6 @@ const BlogDetails = () => {
   if (loading) {
     return <p>Loading blogs...</p>; // Show a loading message while fetching
   }
-  console.log(blogs);
 
   const categories = blogs.reduce((acc, blog) => {
     const { category, id, title, image, writer, date } = blog;
@@ -60,7 +59,6 @@ const BlogDetails = () => {
     }
     return acc;
   }, []);
-  console.log(categories);
 
   return (
     <div>

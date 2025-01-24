@@ -16,7 +16,7 @@ const Course = () => {
       try {
         // Fetch the destination page based on the slug
         const page = await fetchDestinationBySlug(slug);
-        console.log(page);
+
         if (page && page.meta.detail_url) {
           // Fetch detailed data for the destination
           const details = await fetchDestinationDetails(page.meta.detail_url);
@@ -31,7 +31,7 @@ const Course = () => {
 
     getData();
   }, [slug]);
-  console.log(course);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!course) return <div>No data available</div>;

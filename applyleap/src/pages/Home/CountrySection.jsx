@@ -5,12 +5,6 @@ import CountryCard from "../../components/Cards/CountryCard";
 import { Link } from "react-router-dom";
 
 const CountrySection = ({ countries }) => {
-  console.log("con", countries);
-  const generateImageUrl = (image) => {
-    const url = image.url;
-    console.log("url", url);
-    return `${baseUrl}${url}`;
-  };
   return (
     <div className="container mx-auto px-10 py-4">
       {/* Heading Section */}

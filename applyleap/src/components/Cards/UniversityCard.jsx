@@ -1,9 +1,10 @@
 import React from "react";
 import { FaMapMarkerAlt, FaUniversity } from "react-icons/fa"; // React Icons for Location and University
 // Replace with your actual file paths
+import { BASE_URL } from "../../config";
 
 const UniversityCard = (university) => {
-  const baseUrl = "http://127.0.0.1:8000";
+  const baseUrl = BASE_URL;
   const generateImageUrl = (image) => {
     const url = image.url;
 

@@ -1,8 +1,9 @@
 import React from "react";
 import { FaMapMarkerAlt, FaFlag, FaLeaf, FaLandmark } from "react-icons/fa"; // Icons for related logos
+import { BASE_URL } from "../../config";
 
 const CountryCard = ({ country }) => {
-  const baseUrl = "http://127.0.0.1:8000";
+  const baseUrl = BASE_URL;
   const generateImageUrl = (image) => {
     const url = image.url;
 

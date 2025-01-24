@@ -1,7 +1,9 @@
 import React from "react";
 import Button from "../Button/Button";
+import { BASE_URL } from "../../config";
+
 export const CountryBanner = ({ label, image, heading, quote }) => {
-  const baseUrl = "http://127.0.0.1:8000"; // Replace with your backend URL
+  const baseUrl = BASE_URL; // Replace with your backend URL
   const imageUrl = `${baseUrl}${image?.url}`;
 
   return (

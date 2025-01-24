@@ -35,7 +35,7 @@ function Home() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!destinations) return <div>No data available</div>;
-  console.log(destinations);
+
   return (
     <div>
       <HeroSection />

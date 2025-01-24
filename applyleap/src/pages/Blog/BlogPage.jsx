@@ -53,7 +53,7 @@ const BlogWithSidebar = () => {
 
     getData();
   }, [slug]);
-  console.log(blogPage);
+
   // const handleScroll = () => {
 
   //   const sectionOffsets = sections.map((section) => {
@@ -102,8 +102,6 @@ const BlogWithSidebar = () => {
     // Fallback: If no section matches, set the first section
     setCurrentSection(sections[0]);
   };
-
-  console.log("current", currentSection);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);

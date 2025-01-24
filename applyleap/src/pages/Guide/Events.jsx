@@ -31,7 +31,7 @@ export const EventsPage = () => {
 
     getData();
   }, [slug]);
-  console.log(tests);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!tests) return <div>No data available</div>;
@@ -39,8 +39,6 @@ export const EventsPage = () => {
   const events = tests.event_details;
   const baseUrl = "http://127.0.0.1:8000"; // Replace with your backend URL
   const generateImageUrl = (image) => {
-    console.log(image);
-
     return `${baseUrl}${image?.url}`;
   };
   //   const events = [

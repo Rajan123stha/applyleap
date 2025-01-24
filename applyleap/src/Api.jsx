@@ -1,40 +1,54 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000/api/v2";
+// Set the base URL for your server
+//const API_BASE_URL = "http://52.66.68.109:8000/api/v2/";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
+// Define and export the generateImageUrl function
+export const generateImageUrl = (image) => {
+  return `${baseUrl}${image}`;
+};
+// Fetch all pagess
 export const fetchPages = async () => {
-  const response = await axios.get(`${API_BASE_URL}/pages/`);
+  const response = await axios.get(`${API_BASE_URL}pages/`);
   return response.data;
 };
 
-export const fetchPageById = async () => {
-  const response = await axios.get(`${API_BASE_URL}/pages/4/`);
+// Fetch a page by ID
+export const fetchPageById = async (id) => {
+  const response = await axios.get(`${API_BASE_URL}pages/${id}/`);
   console.log(response.data);
   return response.data;
 };
 
-// Fetch data from the detail_url of a specific destination
+// Fetch a destination by slug
 export const fetchDestinationBySlug = async (slug) => {
-  const response = await axios.get(`${API_BASE_URL}/pages/?slug=${slug}`);
+  const response = await axios.get(`${API_BASE_URL}pages/?slug=${slug}`);
   return response.data.items[0]; // Assuming slug is unique
 };
 
+// Fetch details from a destination's detail URL
 export const fetchDestinationDetails = async (detailUrl) => {
+  // Ensure the detail URL is replaced with the server's public IP
   const fixedUrl = detailUrl.replace(
     "http://localhost",
-    "http://127.0.0.1:8000"
+    "http://52.66.68.109:8000"
   );
   const response = await axios.get(fixedUrl);
   return response.data;
 };
 
+// Fetch blogs
 export const fetchBlogs = async () => {
   try {
+    // Fetch blog pages from the API
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/v2/pages/?type=blog.BlogPage"
+      `${API_BASE_URL}pages/?type=blog.BlogPage`
     );
     const blogs = response.data.items;
-    console.log("All Blog:", blogs);
+
+    // Fetch detailed information for each blog
     const detailedBlogs = await Promise.all(
       blogs.map(async (blog) => {
         const detailedData = await fetchDestinationDetails(
@@ -58,7 +72,6 @@ export const fetchBlogs = async () => {
       })
     );
 
-    console.log("Detailed Blogs:", detailedBlogs);
     return detailedBlogs;
   } catch (error) {
     console.error("Error fetching blogs:", error);
@@ -68,7 +81,7 @@ export const fetchBlogs = async () => {
 export const fetchDestinations = async () => {
   try {
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/v2/pages/?type=destination.DestinationPage"
+      `${API_BASE_URL}pages/?type=destination.DestinationPage`
     );
     const destinations = response.data.items;
 
@@ -97,10 +110,9 @@ export const fetchDestinations = async () => {
 export const fetchBlogsByCategory = async (categoryTitle) => {
   try {
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/v2/pages/?type=blog.BlogPage"
+      `${API_BASE_URL}pages/?type=blog.BlogPage`
     );
     const blogs = response.data.items;
-    console.log("All Blogs:", blogs);
 
     // Fetch detailed data for filtered blogs
     const detailedBlogs = await Promise.all(
@@ -115,7 +127,7 @@ export const fetchBlogsByCategory = async (categoryTitle) => {
           month: "long",
           year: "numeric",
         }).format(new Date(detailedData.publish_date));
-        console.log("Curl:", detailedData.banner_image?.url);
+
         return {
           title: blog.title,
           writer: detailedData.writer,
@@ -126,11 +138,11 @@ export const fetchBlogsByCategory = async (categoryTitle) => {
       })
     );
     // Filter blogs by the specified category
-    console.log("before:", detailedBlogs);
+
     const filteredBlogs = detailedBlogs.filter((blog) => {
       return blog.category === categoryTitle; // Corrected filter syntax
     });
-    console.log("Related Blogs:", filteredBlogs);
+
     return filteredBlogs;
   } catch (error) {
     console.error("Error fetching blogs by category:", error);
@@ -141,7 +153,7 @@ export const fetchBlogsByCategory = async (categoryTitle) => {
 export const fetchDestination = async () => {
   try {
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/v2/pages/?type=destination.DestinationPage"
+      `${API_BASE_URL}pages/?type=destination.DestinationPage`
     );
     const destinations = response.data.items;
 
@@ -154,7 +166,7 @@ export const fetchDestination = async () => {
 export const fetchCourses = async () => {
   try {
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/v2/pages/?type=course.CoursePage"
+      `${API_BASE_URL}pages/?type=course.CoursePage`
     );
     const destinations = response.data.items;
 
@@ -184,7 +196,7 @@ export const fetchCourses = async () => {
 export const fetchUniversity = async () => {
   try {
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/v2/pages/?type=university.UniversityPage"
+      `${API_BASE_URL}pages/?type=university.UniversityPage`
     );
     const destinations = response.data.items;
 
@@ -193,7 +205,7 @@ export const fetchUniversity = async () => {
         const detailedData = await fetchDestinationDetails(
           destination.meta.detail_url
         );
-        console.log("Univer", detailedData);
+
         return {
           name: destination.title,
           location: detailedData.location,

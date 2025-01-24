@@ -35,7 +35,7 @@ export const Scholarships = () => {
 
     getData();
   }, [slug]);
-  console.log(scholarship);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!scholarship) return <div>No data available</div>;
