@@ -7,7 +7,9 @@ const MainContent = ({ currentSection, data }) => {
 
     acc[section.heading] = (
       <div id={formattedHeading}>
-        <h2 className="text-3xl font-bold mb-4">{section.heading}</h2>
+        <h2 className=" text-xl lg:text-2xl font-bold mb-4">
+          {section.heading}
+        </h2>
         <div
           className="mb-4"
           dangerouslySetInnerHTML={{ __html: section.content }}
@@ -19,7 +21,7 @@ const MainContent = ({ currentSection, data }) => {
 
   return (
     <div
-      className="p-6 md:px-16 mx-2 mt-8 md:w-4/5 text-justify"
+      className="p-6 md:px-16 mx-2 mt-4 md:w-4/5 text-justify"
       id="main-content"
     >
       {Object.keys(content).map((key) => (

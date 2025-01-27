@@ -33,7 +33,7 @@ export const fetchDestinationDetails = async (detailUrl) => {
   // Ensure the detail URL is replaced with the server's public IP
   const fixedUrl = detailUrl.replace(
     "http://localhost",
-    "http://52.66.68.109:8000"
+    "https://admin.applyleap.com"
   );
   const response = await axios.get(fixedUrl);
   return response.data;

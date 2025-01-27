@@ -35,7 +35,7 @@ const Sidebar = ({ currentSection, onSectionClick, data }) => {
       {/* Mobile view with dropdown */}
       <div className=" z-50 bg-white md:hidden">
         <button
-          className="w-full text-left text-xl font-bold p-6 border-b"
+          className="w-full text-left text-xl font-bold py-4 px-6 border-b"
           onClick={handleDropdownToggle}
         >
           In this story
@@ -51,7 +51,15 @@ const Sidebar = ({ currentSection, onSectionClick, data }) => {
                 }`}
                 onClick={() => onSectionClick(section)}
               >
-                <a href={`#${section.replace(/ /g, "-")}`} className="pl-3">
+                <div
+                  className={`absolute left-0 top-0 h-full w-1 ml-2 ${
+                    currentSection === section ? "bg-blue-500" : "bg-black"
+                  }`}
+                />
+                <a
+                  href={`#${section.toLowerCase().replace(/ /g, "-")}`}
+                  className=""
+                >
                   {section}
                 </a>
               </li>
@@ -82,7 +90,10 @@ const Sidebar = ({ currentSection, onSectionClick, data }) => {
                     currentSection === section ? "bg-blue-500" : "bg-black"
                   }`}
                 />
-                <a href={`#${section.replace(/ /g, "-")}`} className="pl-3">
+                <a
+                  href={`#${section.toLowerCase().replace(/ /g, "-")}`}
+                  className=""
+                >
                   {section}
                 </a>
               </li>

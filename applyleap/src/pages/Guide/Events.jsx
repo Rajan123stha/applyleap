@@ -4,7 +4,7 @@ import { fetchDestinationBySlug, fetchDestinationDetails } from "../../Api";
 import eventImage from "../../assets/images/event.webp";
 import { PageBanner } from "../../components/Banner/PageBanner";
 import FAQ from "../../components/FAQ/FAQ";
-
+import { BASE_URL } from "../../config";
 export const EventsPage = () => {
   const slug = "events";
   const [tests, setTests] = useState(null);
@@ -37,7 +37,7 @@ export const EventsPage = () => {
   if (!tests) return <div>No data available</div>;
 
   const events = tests.event_details;
-  const baseUrl = "http://127.0.0.1:8000"; // Replace with your backend URL
+  const baseUrl = BASE_URL; // Replace with your backend URL
   const generateImageUrl = (image) => {
     return `${baseUrl}${image?.url}`;
   };
