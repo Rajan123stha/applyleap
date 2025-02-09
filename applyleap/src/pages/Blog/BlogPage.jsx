@@ -117,11 +117,12 @@ const BlogWithSidebar = () => {
 
   return (
     <div>
-      <ImageBanner image={blogPage.banner_image} />
       <TopSection data={blogPage} />
+      <ImageBanner image={blogPage.banner_image} />
+
       <div className="md:flex lg:flex">
         {/* Sidebar */}
-        <div className="w-full lg:w-72  md:block sticky top-14">
+        <div className="w-full lg:w-72  md:block sticky top-16">
           <Sidebar
             currentSection={currentSection}
             onSectionClick={setCurrentSection}

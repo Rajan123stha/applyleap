@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "../../assets/images/daniel.jpeg"; // Blog image
 import Button from "../../components/Button/Button";
+import { CiShare2 } from "react-icons/ci";
 import { Helmet } from "react-helmet";
 const TopSection = ({ data }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -43,9 +44,13 @@ const TopSection = ({ data }) => {
 
   return (
     <>
-      <div className="container flex flex-col border-b border-gray-200 pb-4 mb-4 mt-12 px-6 md:px-10 mx-auto space-y-6">
+      <div className="container flex flex-col   pb-4 mb-4 mt-16 px-6 md:px-12 mx-auto space-y-6">
+        <h1 className="text-lg lg:text-3xl font-bold text-gray-900 text-left mt-8 mb-4 ">
+          {data.title}
+        </h1>
+        <p className="text-sm text-gray-500 mb">May 12, 2024</p>
         {/* Top Section: Writer Information */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mt-4">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-gray-300 rounded-full">
               <img
@@ -63,7 +68,14 @@ const TopSection = ({ data }) => {
           </div>
           {/* Share Button with Dropdown */}
           <div className="relative">
-            <button onClick={toggleDropdown}>Share</button>
+            <button
+              onClick={toggleDropdown}
+              className="flex items-center gap-2"
+            >
+              <CiShare2 />
+              Share
+            </button>
+
             {showDropdown && (
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
                 <button
@@ -90,9 +102,6 @@ const TopSection = ({ data }) => {
         </div>
 
         {/* Bottom Section: Blog Title */}
-        <h1 className="text-lg lg:text-2xl font-bold text-gray-900 text-left mt-4">
-          {data.title}
-        </h1>
       </div>
     </>
   );

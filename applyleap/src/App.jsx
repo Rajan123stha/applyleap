@@ -23,6 +23,8 @@ import { UniversityIndex } from "./pages/University/UniversityIndex";
 import CourseIndex from "./pages/Course/CourseIndex";
 import Loading from "./components/Usable/Loading";
 import PageNotFound from "./components/Usable/PageNotFound";
+import { TermsAndConditions } from "./pages/Guide/TermsAndConditions";
+import { PrivacyPolicy } from "./pages/Guide/PrivacyPolicy";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -77,6 +79,12 @@ function App() {
               <Route path="/events/" element={<EventsPage />} />
               <Route path="/contact-us/" element={<ContactUs />} />
               <Route path="*" element={<PageNotFound />} />
+              <Route
+                path="/terms-and-conditions"
+                element={<TermsAndConditions />}
+              />
+
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Routes>
           </main>
 

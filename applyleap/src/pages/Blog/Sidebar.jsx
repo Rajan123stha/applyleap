@@ -71,7 +71,7 @@ const Sidebar = ({ currentSection, onSectionClick, data }) => {
       {/* Desktop view */}
       <div
         className={` container px-6 md:px-4  mx-14 space-y-6 hidden md:block w-80 ${
-          isSticky ? "fixed top-10" : "relative "
+          isSticky ? "fixed top-14" : "relative "
         }`}
       >
         <div className="p-6 ">
@@ -80,7 +80,7 @@ const Sidebar = ({ currentSection, onSectionClick, data }) => {
             {headings.map((section) => (
               <li
                 key={section}
-                className={`cursor-pointer font-medium relative pl-4 ${
+                className={`cursor-pointer font-small relative pl-4 ${
                   currentSection === section ? "text-blue-500" : "text-gray-700"
                 }`}
                 onClick={() => onSectionClick(section)}

@@ -12,9 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from pathlib import Path
+
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -46,10 +48,6 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-<<<<<<< HEAD
-
-=======
->>>>>>> bbb3b86c152954cdb156ec12faf102a5463c6d01
     "wagtail",
     "modelcluster",
     "taggit",
@@ -79,7 +77,7 @@ MIDDLEWARE = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173/',
+    'http://localhost:5173',
     'http://applyleap.s3-website.ap-south-1.amazonaws.com',
     'https://applyleap.s3-website.ap-south-1.amazonaws.com',
     'https://applyleap.com',
@@ -91,8 +89,7 @@ ALLOWED_HOSTS = ['api.applyleap.com', '127.0.0.1', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ['https://api.applyleap.com']
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+
 
 
 
@@ -169,12 +166,20 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, "static"),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(PROJECT_DIR, "static"),
+# ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# STATICFILES_DIRS: directories where your static files are located during development
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# STATIC_ROOT: directory where static files will be collected during collectstatic
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# STATIC_URL: the URL to access static files
 STATIC_URL = "/static/"
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
