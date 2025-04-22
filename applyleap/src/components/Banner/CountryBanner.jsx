@@ -4,7 +4,9 @@ import { BASE_URL } from "../../config";
 
 export const CountryBanner = ({ label, image, heading, quote }) => {
   const baseUrl = BASE_URL; // Replace with your backend URL
+  console.log("image", image);
   const imageUrl = `${baseUrl}${image?.url}`;
+  console.log("image", imageUrl);
 
   return (
     <section
@@ -14,7 +16,7 @@ export const CountryBanner = ({ label, image, heading, quote }) => {
       }}
     >
       {/* Ensure proper height for different devices */}
-      <div className="w-full min-h-[50vh] md:min-h-[50vh] lg:min-h-[85vh] py-12 px-6 md:px-12 lg:px-24">
+      <div className="w-full min-h-[40vh] md:min-h-[40vh] lg:min-h-[50vh] py-12 px-6 md:px-12 lg:px-24">
         {/* Overlay for better readability */}
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
 

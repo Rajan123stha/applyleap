@@ -60,7 +60,7 @@ const CourseSection = () => {
       {/* Responsive Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
         {courses.slice(0, 5).map((course, index) => (
-          <Link to={`/courses/${generateSlug(course.name)}`} key={index}>
+          <Link to={`/courses/${generateSlug(course.title)}`} key={index}>
             <CourseCard course={course} />
           </Link>
         ))}

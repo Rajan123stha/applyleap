@@ -1,6 +1,11 @@
 import React from "react";
 
 const ScholarshipCard = ({ provider, grant, deadline, title, criteria }) => {
+  const lastDate = new Date(deadline).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   return (
     <div className="border border-gray-400 rounded-xl shadow-md p-4 w-80 bg-white transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
       {/* Header */}
@@ -11,7 +16,7 @@ const ScholarshipCard = ({ provider, grant, deadline, title, criteria }) => {
         <div className="text-xs text-gray-600">
           <span>Deadline</span>
           <br />
-          <strong className="text-black">{deadline} </strong>
+          <strong className="text-black">{lastDate} </strong>
         </div>
       </div>
 

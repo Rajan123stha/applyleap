@@ -25,6 +25,10 @@ import Loading from "./components/Usable/Loading";
 import PageNotFound from "./components/Usable/PageNotFound";
 import { TermsAndConditions } from "./pages/Guide/TermsAndConditions";
 import { PrivacyPolicy } from "./pages/Guide/PrivacyPolicy";
+import BlogPage from "./pages/Guide/BlogPage";
+import Breadcrumbs from "./components/Usable/Breadcrumb";
+import { ScholarshipPage } from "./pages/Scholarship/ScholarshipPage";
+import ContentWithAds from "./components/Usable/AdsWithContent";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -49,7 +53,8 @@ function App() {
           <Header />
 
           {/* Main Content */}
-          <main className="flex-grow">
+          <main className="flex-grow mt-16">
+            <Breadcrumbs />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/countries/" element={<CountryIndex />} />
@@ -57,6 +62,7 @@ function App() {
               <Route path="/countries/:slug" element={<Country />} />
               <Route path="/test/:slug" element={<Test />} />
               <Route path="/scholarship/:slug" element={<Scholarships />} />
+              <Route path="/scholarship" element={<ScholarshipPage />} />
               <Route path="/universities/:slug" element={<University />} />
               <Route path="/blogs" element={<BlogDetails />} />
               <Route path="/courses" element={<CourseIndex />} />
@@ -83,8 +89,9 @@ function App() {
                 path="/terms-and-conditions"
                 element={<TermsAndConditions />}
               />
-
+              <Route path="/ads-test" element={<ContentWithAds />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/demo/:id" element={<BlogPage />} />
             </Routes>
           </main>
 

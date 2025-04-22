@@ -6,19 +6,19 @@ import { BASE_URL } from "../../config";
 const UniversityCard = (university) => {
   const baseUrl = BASE_URL;
   const generateImageUrl = (image) => {
-    const url = image.url;
-
-    return `${baseUrl}${url}`;
+    return `${baseUrl}${image?.url}`;
   };
   return (
     <div className="flex flex-col bg-white shadow-md rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
       {/* Image Section */}
       <div className="relative w-full">
+        {console.log(university.image)}
         <img
           src={generateImageUrl(university.image)}
           alt={university.name}
           className="w-full h-48 object-cover"
         />
+
         {/* Ranking Badge */}
         <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
           #{university.ranking} World Ranking

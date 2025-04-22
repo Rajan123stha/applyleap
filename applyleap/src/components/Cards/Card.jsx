@@ -3,10 +3,10 @@ import { BASE_URL } from "../../config";
 
 export const Card = ({ blog }) => {
   const baseUrl = BASE_URL; // Replace with your backend URL
-
+  console.log(blog);
   const generateImageUrl = (image) => {
-    const url = image.url;
-    return `${baseUrl}${url}`;
+    console.log(image);
+    return `${baseUrl}${image?.url}`;
   };
 
   const truncateTitle = (title, maxWords) => {
@@ -22,7 +22,7 @@ export const Card = ({ blog }) => {
       {/* Image Section */}
       <div className="relative w-full">
         <img
-          src={generateImageUrl(blog.image)}
+          src={generateImageUrl(blog.bannerImage)}
           alt={blog.title}
           className="w-full h-48 object-cover"
         />

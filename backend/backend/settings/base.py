@@ -82,12 +82,12 @@ CORS_ALLOWED_ORIGINS = [
     'https://applyleap.s3-website.ap-south-1.amazonaws.com',
     'https://applyleap.com',
     'http://applyleap.com',
-    'https://api.applyleap.com',
+    'https://admin.applyleap.com',
 
 ]
-ALLOWED_HOSTS = ['api.applyleap.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['admin.applyleap.com', '127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['https://api.applyleap.com']
+CSRF_TRUSTED_ORIGINS = ['https://admin.applyleap.com']
 
 
 

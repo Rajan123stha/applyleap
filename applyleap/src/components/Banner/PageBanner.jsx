@@ -9,7 +9,7 @@ export const PageBanner = ({ title, image }) => {
       }}
     >
       {/* Full-height adjustments for different devices */}
-      <div className="w-full min-h-[50vh] md:min-h-[60vh] lg:min-h-screen py-12 px-6 md:px-12 lg:px-24 flex items-center justify-center">
+      <div className="w-full min-h-[30vh] md:min-h-[40vh]  py-12 px-6 md:px-12 lg:px-24 flex items-center justify-center">
         {/* Overlay for readability */}
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 

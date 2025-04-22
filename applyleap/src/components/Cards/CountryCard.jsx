@@ -3,12 +3,14 @@ import { FaMapMarkerAlt, FaFlag, FaLeaf, FaLandmark } from "react-icons/fa"; // 
 import { BASE_URL } from "../../config";
 
 const CountryCard = ({ country }) => {
+  console.log(country);
   const baseUrl = BASE_URL;
   const generateImageUrl = (image) => {
     const url = image.url;
 
     return `${baseUrl}${url}`;
   };
+
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
       {/* Image Section */}

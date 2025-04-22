@@ -18,8 +18,10 @@ const Header = () => {
 
   useEffect(() => {
     const getDestinations = async () => {
+      console.log("connn");
       try {
         const response = await fetchDestination();
+        console.log("con:", response);
         const titles = response.map((data) => data.title);
         setDestinations(titles);
         setLoading(false);

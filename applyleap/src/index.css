@@ -9,6 +9,57 @@
   margin-left: 1.5rem; /* Align the bullets properly */
   padding-left: 0; /* Reset padding if necessary */
 }
+
+.blogSection ul {
+  list-style-type: disc; /* Display bullets */
+  margin-left: 1.5rem; /* Align the bullets properly */
+  padding-left: 0;
+}
+
+.blogSection ol {
+  list-style-type: decimal; /* Numbered list */
+  margin-left: 1.5rem; /* Align the numbers properly */
+  padding-left: 0;
+}
+
+.blogSection img {
+  max-width: 100%; /* Ensure images are responsive */
+  height: auto;
+
+  display: block; /* Avoid inline spacing issues */
+  margin: 1rem 0; /* Add spacing around images */
+}
+
+.blogSection h1,
+.blogSection h2,
+.blogSection h3,
+.blogSection h4,
+.blogSection h5,
+.blogSection h6 {
+  font-weight: bold; /* Ensure headings are bold */
+  margin-top: 1rem; /* Add space above */
+  margin-bottom: 0.5rem; /* Add space below */
+}
+
+.blogSection h1 {
+  font-size: 1.75rem;
+}
+.blogSection h2 {
+  font-size: 1.5rem;
+}
+.blogSection h3 {
+  font-size: 1.5rem;
+}
+.blogSection h4 {
+  font-size: 1.25rem;
+}
+.blogSection h5 {
+  font-size: 1.125rem;
+}
+.blogSection h6 {
+  font-size: 1rem;
+}
+
 html,
 body {
   height: 100%;
@@ -23,4 +74,15 @@ body {
 
 .content-wrapper {
   flex: 1;
+}
+
+@media (max-width: 640px) {
+  /* Target small screens */
+  .breadcrumb-text {
+    display: inline-block;
+    max-width: 150px; /* Adjust width as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

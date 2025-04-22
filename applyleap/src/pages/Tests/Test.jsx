@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchDestinationBySlug, fetchDestinationDetails } from "../../Api";
+import { fetchTestBySlug } from "../../Api";
 import Banner from "../../components/Banner/Banner";
 import Image from "../../assets/images/ielts.jpg";
 import QuickLinks from "../../components/QuickLink";
@@ -19,15 +19,17 @@ export const Test = () => {
     const getData = async () => {
       try {
         // Fetch the destination page based on the slug
-        const page = await fetchDestinationBySlug(slug);
+        const page = await fetchTestBySlug(slug);
+        console.log(page); // Log the fetched data for debugging
 
-        if (page && page.meta.detail_url) {
-          // Fetch detailed data for the destination
-          const details = await fetchDestinationDetails(page.meta.detail_url);
-          setTests(details);
+        if (page) {
+          // Set the tests data after fetching
+          setTests(page);
+        } else {
+          setError("Tests not found.");
         }
       } catch (err) {
-        setError("Failed to load  data.");
+        setError("Failed to load data.");
       } finally {
         setLoading(false);
       }

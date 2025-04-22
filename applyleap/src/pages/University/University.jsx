@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchDestinationBySlug, fetchDestinationDetails } from "../../Api";
+import { fetchUniversityBySlug } from "../../Api";
 import UniBanner from "../../components/Banner/UniBanner";
 import image from "../../assets/images/australia.jpg";
 import KeyInformation from "./keyInfo";
@@ -12,23 +12,25 @@ import QuickLinks from "../../components/QuickLink";
 
 const University = () => {
   const { slug } = useParams();
-  const [university, setTUniversity] = useState(null);
+  const [university, setUniversity] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        // Fetch the destination page based on the slug
-        const page = await fetchDestinationBySlug(slug);
-        console.log(page);
-        if (page && page.meta.detail_url) {
-          // Fetch detailed data for the destination
-          const details = await fetchDestinationDetails(page.meta.detail_url);
-          setTUniversity(details);
+        // Fetch the university page based on the slug
+        const page = await fetchUniversityBySlug(slug);
+        console.log(page); // Log the fetched data for debugging
+
+        if (page) {
+          // Set the university data after fetching
+          setUniversity(page);
+        } else {
+          setError("University not found.");
         }
       } catch (err) {
-        setError("Failed to load  data.");
+        setError("Failed to load data.");
       } finally {
         setLoading(false);
       }
@@ -36,7 +38,9 @@ const University = () => {
 
     getData();
   }, [slug]);
-  console.log(university);
+
+  console.log(university); // Log to check the university data
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!university) return <div>No data available</div>;
@@ -68,9 +72,9 @@ const University = () => {
     <div>
       <UniBanner
         label="Apply Now"
-        image={university.banner_image}
+        image={university.bannerImage}
         quote={university.quote}
-        title={university.title}
+        title={university.name}
       />
       <QuickLinks links={links} />
       <KeyInformation university={university} />

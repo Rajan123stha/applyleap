@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import image from "../../assets/images/courses.webp";
 
-import { fetchCourses } from "../../Api";
+import { fetchCoursDetail } from "../../Api";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import { PageBanner } from "../../components/Banner/PageBanner";
@@ -15,7 +15,7 @@ const CourseIndex = () => {
   useEffect(() => {
     const getDestinations = async () => {
       try {
-        const data = await fetchCourses();
+        const data = await fetchCoursDetail();
         setCourses(data);
       } catch (error) {
         setError(error);
@@ -26,7 +26,7 @@ const CourseIndex = () => {
 
     getDestinations();
   }, []);
-
+  console.log(courses);
   const generateSlug = (title) => {
     return title
       .toLowerCase()
@@ -51,7 +51,7 @@ const CourseIndex = () => {
         {/* Responsive Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {courses.slice(0, 5).map((course, index) => (
-            <Link to={`/courses/${generateSlug(course.name)}`} key={index}>
+            <Link to={`/courses/${generateSlug(course.title)}`} key={index}>
               <CourseCard course={course} />
             </Link>
           ))}

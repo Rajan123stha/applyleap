@@ -2,22 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
-import Image from "../../assets/images/blog.jpg";
-import { fetchDestinationBySlug, fetchDestinationDetails } from "../../Api";
+
+import { fetchBlogBySlug } from "../../Api";
 
 import TopSection from "./TopSection";
 import { ImageBanner } from "../../components/Banner/ImageBanner";
 import FAQ from "../../components/FAQ/FAQ";
 import RelatedBlogs from "../../components/RelatedBlogs/RelatedBlogs";
 import ScrollToTop from "../../components/Button/ScrollToTop";
+import GoogleAd from "../../components/Usable/GoogleAd";
+import AdComponent from "../../components/Usable/AdComponent";
 
 const BlogWithSidebar = () => {
-  // const sections = [
-  //   "Gemini Era",
-  //   "Multimodality and long context",
-  //   "AI agents",
-  //   "Breaking new ground",
-  // ];
   const [currentSection, setCurrentSection] = useState(null);
   const { slug } = useParams();
   const [blogPage, setBlogPage] = useState(null);
@@ -29,23 +25,28 @@ const BlogWithSidebar = () => {
 
   useEffect(() => {
     const getData = async () => {
+      console.log(slug);
       if (dataCache.current[slug]) {
         setBlogPage(dataCache.current[slug]);
         setLoading(false);
         return;
       }
+      console.log(slug);
 
       try {
-        const page = await fetchDestinationBySlug(slug);
+        // Fetch the blog page based on the slug
+        const page = await fetchBlogBySlug(slug);
 
-        if (page && page.meta.detail_url) {
-          const details = await fetchDestinationDetails(page.meta.detail_url);
-          dataCache.current[slug] = details; // Cache data
-          setBlogPage(details);
+        if (page) {
+          // Cache the blog data
+          dataCache.current[slug] = page;
+          // Set the event data after fetching
+          setBlogPage(page);
+        } else {
+          setError("Event not found.");
         }
       } catch (err) {
-        console.error("Error fetching destination data:", err);
-        setError("Failed to load destination data.");
+        setError("Failed to load event data.");
       } finally {
         setLoading(false);
       }
@@ -70,9 +71,27 @@ const BlogWithSidebar = () => {
   //     }
   //   }
   // };
+
+  const { id } = useParams(); // Get the dynamic 'id' from the URL
+
+  // useEffect(() => {
+  //   setLoading(true); // Set loading state when new fetch is triggered
+  //   fetch(`http://localhost:3000/api/blogs/${id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setBlogPage(data); // Set the blog data to state
+  //       setLoading(false); // Set loading to false once data is fetched
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       setError("Failed to fetch blog");
+  //       setLoading(false);
+  //     });
+  // }, [id]); // Re-run the effect whenever the 'id' changes
+
   useEffect(() => {
     if (blogPage) {
-      // Set sections when blogPage data is available
+      // Extract `heading` from the new `sections` format
       setSections(blogPage.sections.map((section) => section.heading));
     }
   }, [blogPage]);
@@ -80,6 +99,7 @@ const BlogWithSidebar = () => {
   const handleScroll = () => {
     const sectionOffsets = sections
       .map((section) => {
+        // Create an ID-friendly format for headings
         const element = document.getElementById(
           section.replace(/ /g, "-").toLowerCase()
         );
@@ -104,25 +124,26 @@ const BlogWithSidebar = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    if (sections.length > 0) {
+      window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [sections]); // Re-run when `sections` is updated
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [sections]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  console.log(blogPage);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
   if (!blogPage) return <div>No data available</div>;
 
   return (
-    <div>
+    <div className="">
       <TopSection data={blogPage} />
-      <ImageBanner image={blogPage.banner_image} />
 
-      <div className="md:flex lg:flex">
-        {/* Sidebar */}
-        <div className="w-full lg:w-72  md:block sticky top-16">
+      <div className="container max-w-6xl md:flex lg:flex items-start justify-center mx-auto mt-12">
+        <div className="w-full lg:w-72 md:block sticky top-16">
           <Sidebar
             currentSection={currentSection}
             onSectionClick={setCurrentSection}
@@ -130,13 +151,21 @@ const BlogWithSidebar = () => {
           />
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 md:ml-16 " id="main-content">
+        <div className="flex-1 flex md:ml-4" id="main-content">
+          {/* Main Content */}
           <MainContent currentSection={currentSection} data={blogPage} />
+
+          {/* Google Ads (Right Side) */}
+          {/* <div className="hidden lg:flex flex-col space-y-6 ml-6">
+            <GoogleAd />
+          </div> */}
         </div>
       </div>
-      <FAQ faqs={blogPage.faqs} />
-      <RelatedBlogs category={blogPage.category} />
+      <div className="container max-w-5xl flex items-start justify-center mx-auto">
+        <FAQ faqs={blogPage.faqs} />
+      </div>
+      {/* <AdComponent adSlot="8590201806" uniqueId="ad-1" fluid={true} /> */}
+      {/* <RelatedBlogs category={blogPage.category} /> */}
       <ScrollToTop />
     </div>
   );

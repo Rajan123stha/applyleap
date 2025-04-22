@@ -16,9 +16,7 @@ export const ScholarshipDetails = ({ scholarship }) => {
           id="about"
         >
           <div className="lg:w-2/3">
-            <h2 className="text-2xl font-bold mb-4">
-              Scholarship in {scholarship.country}
-            </h2>
+            <h2 className="text-2xl font-bold mb-4">{scholarship.title}</h2>
             <div
               className="text-gray-700 text-justify space-y-4 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: scholarship.about }}
@@ -42,9 +40,7 @@ export const ScholarshipDetails = ({ scholarship }) => {
           id="why"
         >
           <div className="lg:w-2/3">
-            <h2 className="text-2xl font-bold mb-4">
-              Types of Scholarships in {scholarship.country}
-            </h2>
+            <h2 className="text-2xl font-bold mb-4">Types of Scholarships</h2>
             <div
               className="text-gray-700 text-justify space-y-4 leading-relaxed"
               dangerouslySetInnerHTML={{

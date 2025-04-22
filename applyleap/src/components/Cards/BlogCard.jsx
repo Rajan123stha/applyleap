@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Links } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import { Card } from "./Card";
 import { fetchBlogs } from "../../Api";
@@ -12,8 +11,9 @@ const BlogCard = () => {
   useEffect(() => {
     const getBlogs = async () => {
       try {
-        const blogData = await fetchBlogs(); // Call the fetchBlogs function
-        setBlogs(blogData); // Update the state with fetched data
+        const blogData = await fetchBlogs(); // Fetch blogs from API
+        console.log(blogData);
+        setBlogs(blogData.slice(0, 3)); // ✅ Keep only the latest 3 blogs
         setLoading(false);
       } catch (error) {
         console.error("Error fetching blog details:", error);
@@ -23,12 +23,14 @@ const BlogCard = () => {
 
     getBlogs();
   }, []);
+
   const generateSlug = (title) => {
     return title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-") // Replace non-alphanumeric characters with hyphens
       .replace(/^-+|-+$/g, ""); // Trim leading/trailing hyphens
   };
+
   return (
     <div className="container mx-auto px-10 py-4">
       {/* Heading Section */}

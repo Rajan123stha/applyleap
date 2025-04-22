@@ -3,6 +3,7 @@ import image from "../../assets/images/uk.jpg";
 import { BASE_URL } from "../../config";
 
 export const CourseDetails = ({ course }) => {
+  console.log(course);
   const modules = course.course_details;
 
   const reviews = course.student_reviews;
@@ -67,7 +68,7 @@ export const CourseDetails = ({ course }) => {
               </tr>
             </thead>
             <tbody>
-              {modules.map((module, index) => (
+              {modules?.map((module, index) => (
                 <tr key={index}>
                   <td className="border border-gray-300 px-4 py-2">
                     {module.field}
@@ -107,7 +108,7 @@ export const CourseDetails = ({ course }) => {
           Student Reviews
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {reviews.map((review, index) => (
+          {reviews?.map((review, index) => (
             <div
               key={index}
               className="p-4 border rounded-lg shadow-md bg-gray-50 hover:shadow-lg transition duration-300"

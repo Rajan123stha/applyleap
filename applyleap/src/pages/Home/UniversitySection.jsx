@@ -6,7 +6,7 @@ import UkImage from "../../assets/uk.jpg";
 import Button from "../../components/Button/Button";
 import UniversityCard from "../../components/Cards/UniversityCard";
 import { useEffect, useState } from "react";
-import { fetchUniversity } from "../../Api";
+import { fetchUniversityDetail } from "../../Api";
 import { Link } from "react-router-dom";
 
 const UniversitySection = () => {
@@ -17,7 +17,7 @@ const UniversitySection = () => {
   useEffect(() => {
     const getDestinations = async () => {
       try {
-        const data = await fetchUniversity();
+        const data = await fetchUniversityDetail();
         setUniversities(data);
       } catch (error) {
         setError(error);
@@ -28,6 +28,7 @@ const UniversitySection = () => {
 
     getDestinations();
   }, []);
+  console.log(universities);
   //to generate slug for link
   const generateSlug = (title) => {
     return title

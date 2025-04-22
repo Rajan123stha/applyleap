@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Card } from "../Cards/Card";
 import { Link } from "react-router-dom";
 import AustraliaImage from "../../assets/australia.jpg";
-import { fetchBlogsByCategory } from "../../Api";
+//import { fetchBlogsByCategory } from "../../Api";
+import { fetchBlogs } from "../../Api";
 
 const RelatedBlogs = ({ category }) => {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
@@ -13,7 +14,7 @@ const RelatedBlogs = ({ category }) => {
     const getRelatedBlogs = async () => {
       try {
         // Replace this with dynamic category selection
-        const blogs = await fetchBlogsByCategory(category);
+        const blogs = await fetchBlogs(category);
         setRelatedBlogs(blogs);
         setLoading(false);
       } catch (err) {

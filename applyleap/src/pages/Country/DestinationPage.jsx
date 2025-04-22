@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchDestinationBySlug, fetchDestinationDetails } from "../../Api";
+import { fetchDestinationBySlug } from "../../Api";
 
 const DestinationPage = () => {
   const { slug } = useParams();
@@ -14,10 +14,8 @@ const DestinationPage = () => {
         // Fetch the destination page based on the slug
         const page = await fetchDestinationBySlug(slug);
         console.log(page);
-        if (page && page.meta.detail_url) {
-          // Fetch detailed data for the destination
-          const details = await fetchDestinationDetails(page.meta.detail_url);
-          setDestination(details);
+        if (page) {
+          setDestination(page);
         }
       } catch (err) {
         setError("Failed to load destination data.");

@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from "react";
 
-import { fetchDestinationBySlug, fetchDestinationDetails } from "../../Api";
+import { fetchEventBySlug } from "../../Api";
 import eventImage from "../../assets/images/event.webp";
 import { PageBanner } from "../../components/Banner/PageBanner";
 import FAQ from "../../components/FAQ/FAQ";
 import { BASE_URL } from "../../config";
 export const EventsPage = () => {
-  const slug = "events";
-  const [tests, setTests] = useState(null);
+  const slug = "";
+  const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        // Fetch the destination page based on the slug
-        const page = await fetchDestinationBySlug(slug);
+        // Fetch the event page based on the slug
+        const page = await fetchEventBySlug();
 
-        if (page && page.meta.detail_url) {
-          // Fetch detailed data for the destination
-          const details = await fetchDestinationDetails(page.meta.detail_url);
-          setTests(details);
+        if (page) {
+          // Set the event data after fetching
+          setEvent(page);
+        } else {
+          setError("Event not found.");
         }
       } catch (err) {
-        setError("Failed to load  data.");
+        setError("Failed to load event data.");
       } finally {
         setLoading(false);
       }
@@ -31,12 +32,12 @@ export const EventsPage = () => {
 
     getData();
   }, [slug]);
-
+  console.log(event);
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
-  if (!tests) return <div>No data available</div>;
+  if (!event) return <div>No data available</div>;
 
-  const events = tests.event_details;
+  const events = event.event_details;
   const baseUrl = BASE_URL; // Replace with your backend URL
   const generateImageUrl = (image) => {
     return `${baseUrl}${image?.url}`;
@@ -131,7 +132,7 @@ export const EventsPage = () => {
           </p>
         </section>
       </div>
-      <FAQ faqs={tests.faqs} />
+      <FAQ faqs={events.faqs} />
     </>
   );
 };

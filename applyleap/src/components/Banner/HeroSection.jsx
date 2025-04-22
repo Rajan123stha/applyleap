@@ -5,18 +5,18 @@ import Button from "../Button/Button";
 const HeroSection = () => {
   return (
     <section
-      className="relative bg-cover bg-center bg-no-repeat text-white flex items-center md:pt-10 justify-center mt-16"
+      className="relative bg-cover bg-center bg-no-repeat text-white flex items-center md:pt-10 justify-center "
       style={{
         backgroundImage: `url(${Banner})`, // Set the background image
       }}
     >
       {/* Ensure proper height for different devices */}
-      <div className="w-full min-h-[50vh] md:min-h-[50vh] lg:min-h-[85vh] py-12 px-6 md:px-12 lg:px-24">
+      <div className="w-full min-h-[40vh] md:min-h-[40vh] lg:min-h-[50vh] py-12 px-6 md:px-12 lg:px-24">
         {/* Overlay for better readability */}
         <div className="absolute inset-0 bg-white bg-opacity-20"></div>
 
         {/* Content */}
-        <div className="relative  text-left max-w-6xl mx-auto space-y-6 text-black lg:space-y-10">
+        <div className="relative  text-left max-w-6xl mx-auto space-y-6 text-black lg:space-y-8">
           <h1 className="text-lg md:text-3xl lg:text-4xl font-bold ">
             Unlock Your Path to Global Education
           </h1>

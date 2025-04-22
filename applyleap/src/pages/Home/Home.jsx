@@ -13,6 +13,7 @@ import { fetchDestinations } from "../../Api";
 import CountrySection from "./CountrySection";
 import CourseSection from "./CourseSection";
 import UniversitySection from "./UniversitySection";
+
 function Home() {
   const [destinations, setDestinations] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,10 +41,12 @@ function Home() {
     <div>
       <HeroSection />
       <CountrySection countries={destinations} />
+
       <CourseSection />
       <StudyAbroadPath />
       <UniversitySection />
       <BlogCard />
+
       <ScrollToTop />
     </div>
   );

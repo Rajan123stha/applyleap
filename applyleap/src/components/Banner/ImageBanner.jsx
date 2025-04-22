@@ -6,7 +6,7 @@ export const ImageBanner = ({ image }) => {
   const imageUrl = `${baseUrl}${image?.url}`;
   return (
     <section
-      className="relative bg-cover bg-center bg-no-repeat text-white flex items-center md:pt-10 justify-center mt-8 mx-8 md:mx-16"
+      className="relative bg-cover bg-center bg-no-repeat text-white flex items-center md:pt-10 justify-center mt-8 "
       style={{
         backgroundImage: `url(${imageUrl})`, // Set the background image
       }}

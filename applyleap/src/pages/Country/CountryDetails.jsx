@@ -2,11 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image1 from "../../assets/images/canada.jpg";
 import Logo1 from "../../assets/images/uk.jpg";
-import {
-  fetchDestinationBySlug,
-  fetchDestinationDetails,
-  fetchPageById,
-} from "../../Api";
 
 export const CountryDetails = ({ destination }) => {
   if (!destination) {

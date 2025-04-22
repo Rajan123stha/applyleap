@@ -8,6 +8,8 @@ import visa from "../../assets/images/visa.png";
 import status from "../../assets/images/checkapplicationstatus.png";
 
 import { PageBanner } from "../../components/Banner/PageBanner";
+import AdComponent from "../../components/Usable/AdComponent";
+import AdSense from "../../components/Usable/AdSense";
 
 export const ApplicationGuide = () => {
   return (
@@ -156,6 +158,14 @@ export const ApplicationGuide = () => {
             <li>Seek guidance from mentors or education consultants.</li>
           </ul>
         </section>
+        <AdSense
+          adSlot="8590201806"
+          style={{
+            margin: "20px 0",
+            minHeight: "280px",
+            backgroundColor: "#f9f9f9", // Light background to see the ad container
+          }}
+        />
       </div>
     </>
   );

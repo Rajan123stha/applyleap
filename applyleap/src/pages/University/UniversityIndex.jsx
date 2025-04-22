@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { fetchUniversity } from "../../Api";
+import { fetchUniversities } from "../../Api";
 import UniversityCard from "../../components/Cards/UniversityCard";
 import { PageBanner } from "../../components/Banner/PageBanner";
 import Banner from "../../assets/images/uni.webp";
-import { fetchDestination } from "../../Api";
+import { fetchUniversityDetail, fetchDestination } from "../../Api";
 import { Link } from "react-router-dom";
 
 export const UniversityIndex = () => {
   const [universities, setUniversities] = useState([]);
   const [filteredUniversities, setFilteredUniversities] = useState([]);
   const [destinations, setDestinations] = useState([]);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [sortOption, setSortOption] = useState(""); // Sorting state
-  const [filterDestination, setFilterDestination] = useState(""); // Destination filter
-  const [tuitionFeeRange, setTuitionFeeRange] = useState({ min: "", max: "" }); // Fee range
-  const [internationalPercentage, setInternationalPercentage] = useState(""); // International students %
-  const [filterVisible, setFilterVisible] = useState(false); // Filter section visibility for small devices
+  const [sortOption, setSortOption] = useState("");
+
+  // Temp states for filters
+  const [tempDestination, setTempDestination] = useState("");
+  const [tempTuitionFee, setTempTuitionFee] = useState({ min: "", max: "" });
+  const [tempInternationalPercentage, setTempInternationalPercentage] =
+    useState("");
+
+  const [filterDestination, setFilterDestination] = useState("");
+  const [tuitionFeeRange, setTuitionFeeRange] = useState({ min: "", max: "" });
+  const [internationalPercentage, setInternationalPercentage] = useState("");
+  const [filterVisible, setFilterVisible] = useState(false);
 
   useEffect(() => {
-    const getDestinations = async () => {
+    const getUniversities = async () => {
       try {
-        const data = await fetchUniversity();
+        const data = await fetchUniversityDetail();
         setUniversities(data);
-        setFilteredUniversities(data); // Initialize filtered data
+        setFilteredUniversities(data);
       } catch (error) {
         setError(error);
       } finally {
@@ -32,84 +38,78 @@ export const UniversityIndex = () => {
       }
     };
 
-    getDestinations();
+    getUniversities();
   }, []);
 
   useEffect(() => {
     const getDestinations = async () => {
       try {
         const response = await fetchDestination();
-        const titles = response.map((data) => data.title);
-        setDestinations(titles);
-        setLoading(false);
+        setDestinations(response.map((data) => data.title));
       } catch (error) {
         console.error("Error fetching destinations:", error);
-        setLoading(false);
       }
     };
 
     getDestinations();
   }, []);
 
+  // Apply sorting immediately
   useEffect(() => {
     let sortedUniversities = [...filteredUniversities];
     if (sortOption === "lowToHigh") {
-      sortedUniversities.sort((a, b) => a.rank - b.rank);
+      sortedUniversities.sort((a, b) => a.ranking - b.ranking);
     } else if (sortOption === "highToLow") {
-      sortedUniversities.sort((a, b) => b.rank - a.rank);
+      sortedUniversities.sort((a, b) => b.ranking - a.ranking);
     }
     setFilteredUniversities(sortedUniversities);
   }, [sortOption]);
 
-  useEffect(() => {
+  // Function to apply filters when the user clicks "Apply Filters"
+  const applyFilters = () => {
     let filtered = universities;
 
-    if (filterDestination) {
+    if (tempDestination) {
       filtered = filtered.filter(
-        (university) => university.location === filterDestination
+        (university) => university.location === tempDestination
       );
     }
 
-    if (tuitionFeeRange.min || tuitionFeeRange.max) {
-      const userMin = parseFloat(tuitionFeeRange.min) || 0;
-      const userMax = parseFloat(tuitionFeeRange.max) || Infinity;
+    if (tempTuitionFee.min || tempTuitionFee.max) {
+      const userMin = parseFloat(tempTuitionFee.min) || 0;
+      const userMax = parseFloat(tempTuitionFee.max) || Infinity;
 
       filtered = filtered.filter((university) => {
         const [universityMin, universityMax] = university.tuitionFee
           .split("-")
           .map(Number);
 
-        return (
-          userMin <= universityMax && userMax >= universityMin // Overlap condition
-        );
+        return userMin <= universityMax && userMax >= universityMin;
       });
     }
 
-    if (internationalPercentage) {
-      const percentage = parseFloat(internationalPercentage);
+    if (tempInternationalPercentage) {
+      const percentage = parseFloat(tempInternationalPercentage);
       filtered = filtered.filter(
         (university) => university.internationalStudents >= percentage
       );
     }
 
+    setFilterDestination(tempDestination);
+    setTuitionFeeRange(tempTuitionFee);
+    setInternationalPercentage(tempInternationalPercentage);
     setFilteredUniversities(filtered);
-  }, [
-    filterDestination,
-    tuitionFeeRange,
-    internationalPercentage,
-    universities,
-  ]);
+  };
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (error) return <div>{error.message}</div>;
   if (!universities.length) return <div>No data available</div>;
 
-  const generateSlug = (title) => {
-    return title
+  const generateSlug = (title) =>
+    title
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-") // Replace non-alphanumeric characters with hyphens
-      .replace(/^-+|-+$/g, ""); // Trim leading/trailing hyphens
-  };
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   return (
     <div>
@@ -152,8 +152,8 @@ export const UniversityIndex = () => {
                 Filter by Destination
               </label>
               <select
-                value={filterDestination}
-                onChange={(e) => setFilterDestination(e.target.value)}
+                value={tempDestination}
+                onChange={(e) => setTempDestination(e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg"
               >
                 <option value="">All Destinations</option>
@@ -163,7 +163,7 @@ export const UniversityIndex = () => {
                     {
                       universities.filter((u) => u.location === destination)
                         .length
-                    }{" "}
+                    }
                     ]
                   </option>
                 ))}
@@ -178,10 +178,10 @@ export const UniversityIndex = () => {
                 <input
                   type="number"
                   placeholder="Min"
-                  value={tuitionFeeRange.min}
+                  value={tempTuitionFee.min}
                   onChange={(e) =>
-                    setTuitionFeeRange({
-                      ...tuitionFeeRange,
+                    setTempTuitionFee({
+                      ...tempTuitionFee,
                       min: e.target.value,
                     })
                   }
@@ -190,10 +190,10 @@ export const UniversityIndex = () => {
                 <input
                   type="number"
                   placeholder="Max"
-                  value={tuitionFeeRange.max}
+                  value={tempTuitionFee.max}
                   onChange={(e) =>
-                    setTuitionFeeRange({
-                      ...tuitionFeeRange,
+                    setTempTuitionFee({
+                      ...tempTuitionFee,
                       max: e.target.value,
                     })
                   }
@@ -209,11 +209,19 @@ export const UniversityIndex = () => {
               <input
                 type="number"
                 placeholder="e.g. 20"
-                value={internationalPercentage}
-                onChange={(e) => setInternationalPercentage(e.target.value)}
+                value={tempInternationalPercentage}
+                onChange={(e) => setTempInternationalPercentage(e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg"
               />
             </div>
+
+            {/* Apply Filters Button */}
+            <button
+              onClick={applyFilters}
+              className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold mt-4"
+            >
+              Apply Filters
+            </button>
           </div>
 
           {/* Main Content */}
@@ -221,10 +229,6 @@ export const UniversityIndex = () => {
             <h1 className="font-bold text-2xl lg:text-3xl mb-4">
               Universities
             </h1>
-            <p className="text-gray-600 mb-4">
-              Here is the list of all the universities Nepali students can apply
-              for abroad study:
-            </p>
             {filteredUniversities.length ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
                 {filteredUniversities.map((university, index) => (

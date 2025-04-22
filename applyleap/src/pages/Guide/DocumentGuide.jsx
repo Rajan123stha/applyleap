@@ -1,11 +1,13 @@
 import React from "react";
 import documentImage from "../../assets/images/uk.jpg";
 import { PageBanner } from "../../components/Banner/PageBanner";
+import AdSense from "../../components/Usable/AdSense";
 
 export const DocumentPreparationGuide = () => {
   return (
     <>
       <PageBanner title="Document Preparation Guide" image={documentImage} />
+
       <div className="container px-6 md:px-10 mx-auto space-y-10">
         {/* Header Section */}
         <section className="py-8 px-4  bg-blue-50 text-center rounded-lg shadow-md">
@@ -58,6 +60,15 @@ export const DocumentPreparationGuide = () => {
             </li>
             <li>Visa application forms and supporting documents.</li>
           </ul>
+
+          <AdSense
+            adSlot="8590201806"
+            style={{
+              margin: "20px 0",
+              minHeight: "250px",
+              backgroundColor: "#f9f9f9", // Light background to see the ad container
+            }}
+          />
         </section>
 
         {/* Tips for Document Preparation */}

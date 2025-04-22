@@ -4,14 +4,15 @@ import placement from "../../assets/images/placement.png";
 import { Link } from "react-router-dom";
 
 export const UniversityDetails = ({ university }) => {
-  const costs = university.tuition_fees;
-  const alumnis = university.alumni_success_stories;
+  const costs = university.tuitionFees;
+  const alumnis = university.alumniSuccessStories;
   const baseUrl = "http://127.0.0.1:8000"; // Replace with your backend URL
   const generateImageUrl = (image) => {
     console.log(image);
 
     return `${baseUrl}${image}`;
   };
+  console.log(university);
   const images = [
     "https://www.timeshighereducation.com/student/sites/default/files/harvard-university-campus.jpg", // Replace with your image URLs
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsuXRnQ3CpVnxNhQMdK1BBwcNzf39PdPC_Og&s",
@@ -52,7 +53,7 @@ export const UniversityDetails = ({ university }) => {
             Why Choose This University?
           </h2>
           <p className="text-gray-700">
-            Here are some reasons why {university.title} is the right choice for
+            Here are some reasons why {university.name} is the right choice for
             you:
           </p>
           <div
@@ -176,7 +177,7 @@ export const UniversityDetails = ({ university }) => {
 
         {/* Individual Alumni Story */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {alumnis.map((alumnus, index) => (
+          {alumnis?.map((alumnus, index) => (
             <div
               key={index}
               className="p-4 border rounded-lg shadow-md bg-white"

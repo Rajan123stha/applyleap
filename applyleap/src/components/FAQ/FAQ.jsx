@@ -1,10 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const FAQ = ({ faqs }) => {
   const [openIndex, setOpenIndex] = useState(null);
+  console.log(faqs);
 
   const toggleFAQ = (index) => {
     setOpenIndex(index === openIndex ? null : index);
+  };
+  const renderRichText = (richText) => {
+    if (!richText?.root) return null;
+
+    const renderNode = (node) => {
+      switch (node.type) {
+        case "root":
+          return node.children?.map((child, index) => renderNode(child));
+        case "paragraph":
+          return (
+            <p key={node.id || Math.random()}>
+              {node.children?.map((child, index) => renderNode(child))}
+            </p>
+          );
+        case "text":
+          return node.format === 1 ? (
+            <strong key={node.id || Math.random()}>{node.text}</strong>
+          ) : (
+            node.text
+          );
+        default:
+          return null;
+      }
+    };
+
+    return renderNode(richText.root);
   };
 
   return (
@@ -36,10 +63,15 @@ const FAQ = ({ faqs }) => {
                     </button>
                   </div>
                   {openIndex === index && (
-                    <div
-                      className="mt-2 text-gray-700"
-                      dangerouslySetInnerHTML={{ __html: faq.answer }}
-                    />
+                    // <div
+                    //   className="mt-2 text-gray-700"
+                    //   dangerouslySetInnerHTML={{
+                    //     __html: renderRichText(faq.answer),
+                    //   }}
+                    // />
+                    <div className="text-base">
+                      {renderRichText(faq.answer)}
+                    </div>
                   )}
                 </div>
               ))}

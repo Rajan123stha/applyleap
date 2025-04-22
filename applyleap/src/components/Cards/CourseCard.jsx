@@ -35,8 +35,8 @@ const CourseCard = ({ course }) => {
       {/* Image Section */}
       <div className="relative w-full">
         <img
-          src={generateImageUrl(course.image)}
-          alt={`Image of ${course.name}`}
+          src={generateImageUrl(course.bannerImage)}
+          alt={`Image of ${course.title}`}
           className="w-full h-48 object-cover"
         />
       </div>
@@ -45,7 +45,9 @@ const CourseCard = ({ course }) => {
       <div className="p-4">
         {/* Title and Field */}
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-semibold text-gray-800">{course.name}</h3>
+          <h3 className="text-lg font-semibold text-gray-800">
+            {course.title}
+          </h3>
           <span className="text-sm text-blue-500 bg-blue-100 px-3 py-1 rounded-full">
             {course.field}
           </span>

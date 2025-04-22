@@ -13,7 +13,7 @@ export const UniBanner = ({ label, image, quote, title }) => {
       }}
     >
       {/* Ensure proper height for different devices */}
-      <div className="w-full min-h-[50vh] md:min-h-[50vh] lg:min-h-[85vh] py-12 px-6 md:px-12 lg:px-24">
+      <div className="w-full min-h-[40vh] md:min-h-[40vh] lg:min-h-[40vh] py-12 px-6 md:px-12 lg:px-24">
         {/* Overlay for better readability */}
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
 
